@@ -32,8 +32,11 @@ SECRET_KEY = "django-insecure-3da4$l-4sg@$bat7qqrvanbz06cipp@9(@2djt!)thgsc^*gfg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['8000-hughkeenan-fixit-jsmaswtu3nj.ws-eu118.gitpod.io', 'localhost', '127.0.0.1']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-hughkeenan-fixit-jsmaswtu3nj.ws-eu118.gitpod.io'
+]
 
 # Application definition
 
