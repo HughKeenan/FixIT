@@ -17,7 +17,13 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
+from fixit_app import views
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path('admin/', admin.site.urls),
+    path('signup/', views.signup_view, name='signup'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
+    path('', views.home, name='home'),
 ]
