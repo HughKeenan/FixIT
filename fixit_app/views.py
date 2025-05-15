@@ -4,6 +4,44 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import SignUpForm
 from django.shortcuts import render
 from datetime import datetime
+import openai
+from django.conf import settings
+from django.http import JsonResponse
+
+
+openai.api_key = settings.OPENAI_API_KEY
+client = openai.OpenAI(api_key=settings.OPENAI_API_KEY)
+
+def ask_ai(request):
+    if request.method == 'POST':
+        user_input = request.POST.get('user_input')
+
+        try:
+            answer = get_simple_answer(user_input)
+            return JsonResponse({'answer': answer})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+
+def get_simple_answer(user_question):
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        store=True,
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a helpful assistant that explains technical things in simple, friendly terms for elderly users."
+            },
+            {
+                "role": "user",
+                "content": user_question
+            }
+        ],
+        temperature=0.7,
+        max_tokens=200
+    )
+    return response.choices[0].message.content.strip()
+
 
 def signup_view(request):
     if request.method == 'POST':
