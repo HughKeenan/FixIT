@@ -5,10 +5,15 @@ from .models import UserProfile
 
 
 class SignUpForm(UserCreationForm):
-    year_of_birth = forms.IntegerField(label="Year of Birth", widget=forms.NumberInput(attrs={
-        'class': 'form-control',
-        'placeholder': 'e.g. 1985'
-    }))
+    year_of_birth = forms.IntegerField(
+        label="Year of Birth",
+        min_value=1900,
+        max_value=2025,
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'e.g. 1985'
+        })
+    )
 
     class Meta:
         model = User

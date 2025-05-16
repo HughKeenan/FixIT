@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>FixIT – Ask Me Anything</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+            background-color: #f8f9fa;
+            font-size: 1.1rem;
+            }
+            .chat-box {
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #dee2e6;
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: white;
+            }
+            .user-msg, .bot-msg {
+            margin-bottom: 1rem;
+            }
+            .user-msg {
+            text-align: right;
+            }
+            .bot-msg {
+            text-align: left;
+            }
+            footer {
+            font-size: 0.9rem;
+            }
+        </style>
+    </head>
+    <body>
+
+        <!-- 🌐 Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">FixIT</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'history' %}">History</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        </nav>
+
+        <!-- Info about the site -->
+        <main class="container my-5">
+        <div class="text-center mb-4">
+            <h1 class="display-5 fw-bold">About this site</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-5 mt-5">
+                <h2>Our purpose:</h2>
+                <p>Technology moves fast, and isn't always easy to navigate. 
+                    The team behind the site decided a modern solution was needed for a modern problem. This site uses an AI to 
+                    provide solutions to common problems with technology. The goal behind was to enable inexperienced users to 
+                    easily find solutions on their own that are delivered in simple, easy to understand language, 
+                    without having to navigate through pages of search results they may not understand. 
+                    Granchildren of the world, rejoice! Your long years of service as tech support are at an end!</p>
+            </div>
+            <div class="col-md-6 mb-5 mt-5 text-end">
+                <img src="{% static 'images/confused.png' %}" alt="Image of a woman using a computer">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-5 mt-5">
+                <img src="{% static 'images/help.png' %}" alt="Image of a robot helping a person witha computer">
+            </div>
+            <div class="col-md-6 mb-5 mt-5">
+                <h2>How to use the site:</h2>
+                <p>This site enables users to ask the AI for solutions to their problems in the same manner as they would ask
+                    another person. Simply type your question into the box on the home page, and the computer will provide an
+                    answer for you. Alternatively, for those who have difficulty typing, by clicking the button beneath the box, 
+                    you can make queries by speech instead. If the answer is unclear, you can ask the computer to provide more detail. 
+                    Users can visit our site for free as many times as they wish. For those who feel they might like more regular 
+                    help, there is the option of creating an account on the site. This has a few benefits, such as tracking your previous 
+                    questions. If you got an answer you really liked to a problem, then as a member that will be saved for you 
+                    to refer back to whenever you need it.
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center mb-5 mt-5">
+            <h2>Further Information/ Bug Reports:</h2>
+            <p>If you have any more questions about the site, please feel free to contact us at support@fixit.com.</p>
+            <p>We also request that if you encounter a bug (e.g. page not loading, inappropriate/nonsensical response from 
+                the AI etc.) please send us a message describing what happened to bugs@fixit.com.
+            </p>
+        </div>
+
+        </main>
+
+        <!-- 📄 Footer -->
+        <footer class="bg-light py-3 text-center">
+        <div class="container">
+            <p class="mb-0">© {{ year|default:"2024" }} FixIT – Making tech a little less scary.</p>
+        </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+        document.getElementById('chatForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const input = document.getElementById('userInput');
+            const chatBox = document.getElementById('chatBox');
+
+            const userMsg = `<div class="user-msg"><strong>You:</strong> ${input.value}</div>`;
+            chatBox.innerHTML += userMsg;
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            fetch('/ask-ai/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: new URLSearchParams({ user_input: input.value })
+            })
+            .then(res => res.json())
+            .then(data => {
+            const reply = data.answer || "Sorry, I couldn't understand that.";
+            const botMsg = `<div class="bot-msg"><strong>FixIT:</strong> ${reply}</div>`;
+            chatBox.innerHTML += botMsg;
+            chatBox.scrollTop = chatBox.scrollHeight;
+            });
+
+            input.value = '';
+        });
+        </script>
+    </body>
+</html>
