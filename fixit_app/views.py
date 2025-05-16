@@ -30,21 +30,25 @@ def ask_ai(request):
         try:
             answer = get_simple_answer(user_input)
 
-           # Only save if it's not a resend
-            if not resend:
-                Message.objects.create(user=request.user, question=user_input, response=answer)
-            
             # Save to session to show on homepage
             request.session['last_question'] = user_input
             request.session['last_response'] = answer
 
-            return redirect('home')
+            Message.objects.create(user=request.user, question=user_input, response=answer)
+
+            if resend:
+                return redirect('home')
+
+            return JsonResponse({'answer': answer})
 
         except Exception as e:
-            request.session['last_response'] = f"⚠️ Error: {str(e)}"
-            return redirect('home')
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({'error': str(e)}, status=500)
+            else:
+                return redirect('home')
 
-    return redirect('home')
+    return JsonResponse({'answer': answer})
+
 
 
 def get_simple_answer(user_question):
@@ -111,10 +115,11 @@ def login_view(request):
 
 
 def home(request):
-    context = {'year': datetime.now().year}
-
+    context = {'year': datetime.now().year, 'messages': []}
     if request.user.is_authenticated:
+        messages = Message.objects.filter(user=request.user).order_by('created_at')
         context['last_question'] = request.session.pop('last_question', None)
         context['last_response'] = request.session.pop('last_response', None)
-
+        context['messages'] = messages
+    
     return render(request, 'home.html', context)
