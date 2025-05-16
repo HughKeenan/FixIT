@@ -7,20 +7,44 @@ from datetime import datetime
 import openai
 from django.conf import settings
 from django.http import JsonResponse
-
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages as msg
+from django.shortcuts import get_object_or_404, redirect
+from .models import Message
+from django.views.decorators.csrf import csrf_exempt
 
 openai.api_key = settings.OPENAI_API_KEY
 client = openai.OpenAI(api_key=settings.OPENAI_API_KEY)
 
+@login_required
+@csrf_exempt
 def ask_ai(request):
     if request.method == 'POST':
         user_input = request.POST.get('user_input')
 
+        resend = request.POST.get('resend') == 'true'
+
+        if not user_input:
+            return redirect('home')
+        
         try:
             answer = get_simple_answer(user_input)
-            return JsonResponse({'answer': answer})
+
+           # Only save if it's not a resend
+            if not resend:
+                Message.objects.create(user=request.user, question=user_input, response=answer)
+            
+            # Save to session to show on homepage
+            request.session['last_question'] = user_input
+            request.session['last_response'] = answer
+
+            return redirect('home')
+
         except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
+            request.session['last_response'] = f"⚠️ Error: {str(e)}"
+            return redirect('home')
+
+    return redirect('home')
 
 
 def get_simple_answer(user_question):
@@ -42,6 +66,24 @@ def get_simple_answer(user_question):
     )
     return response.choices[0].message.content.strip()
 
+
+@login_required
+def message_history(request):
+    messages = Message.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'history.html', {'messages': messages})
+
+@login_required
+def delete_message(request, pk):
+    message = get_object_or_404(Message, pk=pk, user=request.user)
+    message.delete()
+    msg.success(request, "Message deleted.")
+    return redirect('history')
+
+@login_required
+def clear_history(request):
+    Message.objects.filter(user=request.user).delete()
+    msg.success(request, "All history cleared.")
+    return redirect('history')
 
 def signup_view(request):
     if request.method == 'POST':
@@ -67,5 +109,12 @@ def login_view(request):
         form.fields['password'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Password'})
     return render(request, 'registration/login.html', {'form': form})
 
+
 def home(request):
-    return render(request, 'home.html', {'year': datetime.now().year})
+    context = {'year': datetime.now().year}
+
+    if request.user.is_authenticated:
+        context['last_question'] = request.session.pop('last_question', None)
+        context['last_response'] = request.session.pop('last_response', None)
+
+    return render(request, 'home.html', context)

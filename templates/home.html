@@ -43,20 +43,23 @@
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">Login</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
-                </li>
-                {% endif %}
-            </ul>
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'history' %}">History</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+                        </li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
         </nav>
@@ -70,7 +73,12 @@
 
         <div class="chat-box mb-4" id="chatBox">
             <!-- Chat history goes here -->
-            <div class="bot-msg"><strong>FixIT:</strong> Hi there! How can I help you today?</div>
+            {% if last_question and last_response %}
+                <div class="user-msg"><strong>You:</strong> {{ last_question }}</div>
+                <div class="bot-msg"><strong>FixIT:</strong> {{ last_response }}</div>
+            {% else %}
+                <div class="bot-msg"><strong>FixIT:</strong> Hi there! How can I help you today?</div>
+            {% endif %}
         </div>
 
         <form id="chatForm" method="post">
