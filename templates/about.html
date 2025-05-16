@@ -19,6 +19,14 @@
             border-radius: 8px;
             background-color: white;
             }
+            .about_text{
+                font-weight: 500;
+            }
+            .about_line{
+                text-decoration: underline;
+                text-decoration-thickness: 2px;
+                text-underline-offset: 10px;
+            }
             .user-msg, .bot-msg {
             margin-bottom: 1rem;
             }
@@ -72,8 +80,8 @@
 
         <div class="row">
             <div class="col-md-6 mb-5 mt-5">
-                <h2>Our purpose:</h2>
-                <p>Technology moves fast, and isn't always easy to navigate. 
+                <h2 class = "about_line">Our purpose:</h2>
+                <p class = "about_text">Technology moves fast, and isn't always easy to navigate. 
                     The team behind the site decided a modern solution was needed for a modern problem. This site uses an AI to 
                     provide solutions to common problems with technology. The goal behind was to enable inexperienced users to 
                     easily find solutions on their own that are delivered in simple, easy to understand language, 
@@ -90,23 +98,22 @@
                 <img src="{% static 'images/help.png' %}" alt="Image of a robot helping a person witha computer">
             </div>
             <div class="col-md-6 mb-5 mt-5">
-                <h2>How to use the site:</h2>
-                <p>This site enables users to ask the AI for solutions to their problems in the same manner as they would ask
+                <h2 class = "about_line">How to use the site:</h2>
+                <p class = "about_text">This site enables users to ask the AI for solutions to their problems in the same manner as they would ask
                     another person. Simply type your question into the box on the home page, and the computer will provide an
                     answer for you. Alternatively, for those who have difficulty typing, by clicking the button beneath the box, 
                     you can make queries by speech instead. If the answer is unclear, you can ask the computer to provide more detail. 
                     Users can visit our site for free as many times as they wish. For those who feel they might like more regular 
                     help, there is the option of creating an account on the site. This has a few benefits, such as tracking your previous 
                     questions. If you got an answer you really liked to a problem, then as a member that will be saved for you 
-                    to refer back to whenever you need it.
-                </p>
+                    to refer back to whenever you need it.</p>
             </div>
         </div>
 
         <div class="text-center mb-5 mt-5">
-            <h2>Further Information/ Bug Reports:</h2>
-            <p>If you have any more questions about the site, please feel free to contact us at support@fixit.com.</p>
-            <p>We also request that if you encounter a bug (e.g. page not loading, inappropriate/nonsensical response from 
+            <h2 class = "about_line">Further Information/ Bug Reports:</h2>
+            <p class = "about_text">If you have any more questions about the site, please feel free to contact us at support@fixit.com.</p>
+            <p class = "about_text">We also request that if you encounter a bug (e.g. page not loading, inappropriate/nonsensical response from 
                 the AI etc.) please send us a message describing what happened to bugs@fixit.com.
             </p>
         </div>
