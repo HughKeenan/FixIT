@@ -32,4 +32,5 @@ urlpatterns = [
     path('history/delete/<int:pk>/', views.delete_message, name='delete_message'),
     path('history/clear/', views.clear_history, name='clear_history'),
     path('about/', views.about, name='about'),
+    path('generate-pdf/', views.generate_pdf, name='generate_pdf'),
 ]
