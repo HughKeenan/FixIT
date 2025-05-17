@@ -132,5 +132,10 @@ def about(request):
         context['last_response'] = request.session.pop('last_response', None)
 
     return render(request, 'about.html', context)
-    
 
+def meet_the_team(request):
+    context = {
+        'title': 'Meet the Team',  # Example data
+        # Add any other data you want to pass to the template
+    }
+    return render(request, 'meet_the_team.html', context)

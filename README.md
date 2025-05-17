@@ -1,5 +1,7 @@
 # 🛠️ FixIT - AI-Powered Tech Support for Families
 
+🌐 **Live Site**: [https://fixit-af0e14cb45cc.herokuapp.com/](https://fixit-af0e14cb45cc.herokuapp.com/)
+
 [![Logo](static/images/readme_images/fixit_logo.png)](link_to_your_repo)
 
 ---
