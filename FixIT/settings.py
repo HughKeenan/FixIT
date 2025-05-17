@@ -33,7 +33,7 @@ DEBUG = os.environ.get("DEBUG", False)
 
 USE_X_FORWARDED_HOST = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['fixit-af0e14cb45cc.herokuapp.com']
 CSRF_TRUSTED_ORIGINS = []
 host = os.environ.get("HOST")
 if host:
