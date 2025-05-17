@@ -1,1 +1,1 @@
-web: gunicorn fixit.wsgi
+web: gunicorn FixIT.wsgi
