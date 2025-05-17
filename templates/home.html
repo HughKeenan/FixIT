@@ -9,10 +9,10 @@
             <div class="hero-subtitle">Having trouble with tech? <br>Just ask, and I’ll explain it like you're my grandma. <span style="font-size:1.5rem;">😊</span></div>
         </div>
     </div>
-    <div id="voice-input-group">
+    {% comment %} <div id="voice-input-group">
         <button class="btn btn-outline-secondary btn-sm" id="voiceInput">🎙️ Speak Instead</button>
         <span class="text-muted ms-2 small">Use your voice if typing is tricky!</span>
-    </div>
+    </div> {% endcomment %}
     <form id="chatForm" method="post" action="{% url 'ask_ai' %}">
         {% csrf_token %}
         <div class="input-group">
