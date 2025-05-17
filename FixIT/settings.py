@@ -39,15 +39,6 @@ if host:
     ALLOWED_HOSTS.append(host)
     CSRF_TRUSTED_ORIGINS.append(f"https://{host}")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['8000-hughkeenan-fixit-jsmaswtu3nj.ws-eu118.gitpod.io', 'localhost', '127.0.0.1']
-
-CSRF_TRUSTED_ORIGINS = [
-    'https://8000-hughkeenan-fixit-jsmaswtu3nj.ws-eu118.gitpod.io'
-]
-
 # Application definition
 
 INSTALLED_APPS = [
