@@ -1,4 +1,4 @@
-/* body {
+body {
     background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
     font-family: 'Roboto', sans-serif;
     font-size: 1.1rem;
@@ -10,28 +10,18 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.chat-box {
-    height: 400px;
-    overflow-y: auto;
-    border: none;
-    padding: 1rem;
-    border-radius: 12px;
-    background: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-}
-
 .chat-box:hover {
     transform: scale(1.01);
 }
 
 .user-msg {
+    color: #c7278b;
     text-align: right;
     margin-bottom: 1rem;
 }
 
 .user-msg strong {
-    color: #0d6efd;
+    color: #c7278b;
 }
 
 .bot-msg {
@@ -40,7 +30,7 @@
 }
 
 .bot-msg strong {
-    color: #198754;
+    color: #0297c4;
 }
 
 .input-group input {
@@ -76,11 +66,11 @@ h1 {
 .btn-outline-secondary:hover {
     background: #6c757d;
     color: white;
-} */
+}
 
 
 body {
-    background: linear-gradient(120deg, #a1c4fd, #c2e9fb, #f8fafc, #a1c4fd);
+    background: linear-gradient(120deg, #85d9f3, #c2e9fb, #f8fafc, rgb(180, 206, 249));
     background-size: 300% 300%;
     animation: gradientBG 12s ease-in-out infinite;
     min-height: 100vh;
@@ -101,20 +91,11 @@ nav {
 .hero-section {
     position: relative;
     background: transparent;
-    padding: 5rem 0 3rem 0;
+    padding: 0.0 0 3rem 0;
     text-align: center;
     overflow: hidden;
 }
-.hero-section .hero-bg-shape,
-.hero-section .hero-bg-shape2 {
-    position: absolute;
-    width: 340px;
-    height: 340px;
-    filter: blur(18px);
-    z-index: 0;
-    opacity: 0.8;
-    animation: floatShape 6s ease-in-out infinite alternate;
-}
+
 .hero-section .hero-bg-shape {
     top: -120px;
     left: -120px;
@@ -124,7 +105,7 @@ nav {
 .hero-section .hero-bg-shape2 {
     bottom: -120px;
     right: -120px;
-    background: radial-gradient(circle at 60% 60%, #007bff99 60%, transparent 100%);
+    background: radial-gradient(circle at 60% 60%, #0297c499 60%, transparent 100%);
     animation-delay: 1.5s;
 }
 .chat-box {
@@ -134,16 +115,13 @@ nav {
     padding: 1rem;
     border-radius: 8px;
     background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
 }
 .user-msg, .bot-msg {
     margin-bottom: 1rem;
 }
-.user-msg {
-    text-align: right;
-}
-.bot-msg {
-    text-align: left;
-}
+
 .input-group {
     margin-bottom: 0.5rem;
 }
@@ -180,25 +158,29 @@ nav {
 }
 .auth-card .form-control:focus {
     box-shadow: 0 0 0 0.2rem #b6d4fe;
-    border-color: #007bff;
+    border-color: #0297c4;
 }
 .auth-card .btn-primary {
     width: 100%;
     font-weight: 600;
     letter-spacing: 1px;
 }
+.btn-primary{
+    background-color: #007395 !important;
+}
 .auth-link {
     display: block;
     margin-top: 1rem;
     text-align: center;
-  }
+    color: #0297c4 !important;
+}
 
 .auth-logo {
     font-size: 2.7rem;
     font-weight: 900;
     letter-spacing: 2px;
-    color: #007bff;
-    background: linear-gradient(90deg, #007bff 60%, #00c6ff 100%);
+    color: #0297c4;
+    background: linear-gradient(90deg, #0297c4 60%, #00c6ff 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
@@ -245,9 +227,9 @@ nav {
 .hero-title {
     font-size: 3.2rem;
     font-weight: 800;
-    color: #007bff;
+    color: #007395;
     letter-spacing: 2px;
-    text-shadow: 0 4px 24px #007bff22, 0 2px 8px #fff;
+    text-shadow: 0 4px 24px #0297c422, 0 2px 8px #fff;
     z-index: 1;
     position: relative;
     margin-bottom: 0.5rem;
@@ -262,7 +244,7 @@ nav {
     animation: fadeInUp 1.2s;
 }
 .fancy-btn {
-    background: linear-gradient(90deg, #007bff 60%, #00c6ff 100%);
+    background: linear-gradient(90deg, #0297c4 60%, #00c6ff 100%);
     color: #fff;
     font-weight: 700;
     font-size: 1.2rem;
@@ -289,7 +271,7 @@ nav {
     left: 120%;
 }
 .fancy-btn:hover, .fancy-btn:focus {
-    background: linear-gradient(90deg, #0056b3 60%, #007bff 100%);
+    background: linear-gradient(90deg, #0e6079 60%, #0297c4 100%);
     box-shadow: 0 12px 36px 0 rgba(0, 123, 255, 0.22);
     transform: translateY(-3px) scale(1.04);
 }
@@ -314,7 +296,7 @@ nav {
 .feature-title {
     font-size: 1.3rem;
     font-weight: 700;
-    color: #007bff;
+    color: #0297c4;
     margin-bottom: 0.5rem;
 }
 .feature-desc {
@@ -344,7 +326,7 @@ nav {
         box-shadow: 0 0 8px 2px #00c6ff44;
     }
     to {
-        box-shadow: 0 0 18px 6px #007bff33;
+        box-shadow: 0 0 18px 6px #0297c433;
     }
 }
 @keyframes fadeInDown {
@@ -387,19 +369,19 @@ nav {
 /* Footer styles */
 .footer-logo {
     letter-spacing: 1px;
-    background: linear-gradient(90deg, #007bff 60%, #00c6ff 100%);
+    background: linear-gradient(90deg, #0297c4 60%, #45b4d5 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
 }
 .footer-link {
-    color: #007bff;
+    color: #0297c4;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s;
 }
 .footer-link:hover {
-    color: #0056b3;
+    color: #024458;
     text-decoration: underline;
 }
 @media (max-width: 600px) {
