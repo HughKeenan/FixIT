@@ -121,5 +121,16 @@ def home(request):
         context['last_question'] = request.session.pop('last_question', None)
         context['last_response'] = request.session.pop('last_response', None)
         context['messages'] = messages
-    
+
     return render(request, 'home.html', context)
+
+def about(request):
+    context = {'year': datetime.now().year}
+
+    if request.user.is_authenticated:
+        context['last_question'] = request.session.pop('last_question', None)
+        context['last_response'] = request.session.pop('last_response', None)
+
+    return render(request, 'about.html', context)
+    
+
