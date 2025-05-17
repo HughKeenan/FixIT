@@ -117,7 +117,7 @@ def login_view(request):
 def home(request):
     context = {'year': datetime.now().year, 'messages': []}
     if request.user.is_authenticated:
-        messages = Message.objects.filter(user=request.user).order_by('created_at')
+        messages = Message.objects.filter(user=request.user).order_by('-created_at')
         context['last_question'] = request.session.pop('last_question', None)
         context['last_response'] = request.session.pop('last_response', None)
         context['messages'] = messages
