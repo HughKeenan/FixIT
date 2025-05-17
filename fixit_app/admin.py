@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import UserProfile
+from .models import UserProfile, Message
 
 class UserProfileInline(admin.StackedInline):
     model = UserProfile
@@ -16,3 +16,8 @@ admin.site.unregister(User)
 
 # Register User with the new UserAdmin
 admin.site.register(User, UserAdmin)
+
+@admin.register(Message)
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ('user', 'question', 'created_at')
+    search_fields = ('user__username', 'question', 'response')

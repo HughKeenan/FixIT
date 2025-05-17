@@ -28,5 +28,8 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
     path('', views.home, name='home'),
     path('ask-ai/', views.ask_ai, name='ask_ai'),
-
+    path('history/', views.message_history, name='history'),
+    path('history/delete/<int:pk>/', views.delete_message, name='delete_message'),
+    path('history/clear/', views.clear_history, name='clear_history'),
+    path('about/', views.about, name='about'),
 ]
