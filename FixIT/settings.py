@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import django_heroku
 import os
 import dj_database_url
 
@@ -27,16 +28,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-3da4$l-4sg@$bat7qqrvanbz06cipp@9(@2djt!)thgsc^*gfg"
+SECRET_KEY = os.environ.get("SECRET_KEY")
+DEBUG = os.environ.get("DEBUG", False)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+USE_X_FORWARDED_HOST = True
 
-ALLOWED_HOSTS = ['8000-hughkeenan-fixit-jsmaswtu3nj.ws-eu118.gitpod.io', 'localhost', '127.0.0.1']
-
-CSRF_TRUSTED_ORIGINS = [
-    'https://8000-hughkeenan-fixit-jsmaswtu3nj.ws-eu118.gitpod.io'
-]
+ALLOWED_HOSTS = ['fixit-af0e14cb45cc.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = []
+host = os.environ.get("HOST")
+if host:
+    ALLOWED_HOSTS.append(host)
+    CSRF_TRUSTED_ORIGINS.append(f"https://{host}")
 
 # Application definition
 
@@ -58,6 +60,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = "FixIT.urls"
@@ -133,3 +137,5 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+django_heroku.settings(locals())

@@ -64,9 +64,9 @@
                 margin-bottom: 0.5rem;
             }
             #voice-input-group{
-               margin-bottom = 0.3rem;
+               margin-bottom: 0.3rem;
             }
-            .btn-primary {
+            /*.btn-primary {
                 background: linear-gradient(90deg, #007bff 60%, #00c6ff 100%);
                 border: none;
                 border-radius: 2rem;
@@ -79,7 +79,7 @@
                 background: linear-gradient(90deg, #0056b3 60%, #007bff 100%);
                 box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
                 transform: translateY(-2px);
-            }
+            }*/
             .btn-outline-danger {
                 border-radius: 2rem;
                 padding: 0.5rem 1.5rem;
@@ -192,13 +192,19 @@
                         </div>
                     {% endfor %}
                 </div>
-                <form method="post" action="{% url 'clear_history' %}" class="text-end mb-3">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">Clear All History</button>
-                </form>
-            {% else %}
-                <p class="text-muted">No questions asked yet.</p>
-            {% endif %}
+                <div>
+                    <form method="get" action="{% url 'generate_pdf' %}" class="text-end mb-3">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Download History</button>
+                    </form>
+                    <form method="post" action="{% url 'clear_history' %}" class="text-end mb-3">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Clear All History</button>
+                    </form>
+                {% else %}
+                    <p class="text-muted">No questions asked yet.</p>
+                {% endif %}
+                </div>
 
             <a href="/" class="btn btn-secondary mt-4">⬅ Back to Home</a>
         </div>
