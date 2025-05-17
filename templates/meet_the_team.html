@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Meet the Team{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/meettheteam.css' %}">
+<style>
+    .team-header {
+        background-color: #007bff;
+        color: white;
+        padding: 3rem 0;
+        text-align: center;
+        margin-bottom: 4rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+    }
+
+    .team-header h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.1rem;
+        text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+    }
+
+    .team-header p {
+        font-size: 1.2rem;
+        max-width: 75%;
+        margin: 0 auto;
+        line-height: 1.7;
+        color: #e9ecef;
+    }
+
+    .team-section {
+        padding: 3rem 0;
+    }
+
+    .team-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 3rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .team-card {
+        background-color: white;
+        border-radius: 1rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        width: 320px;
+        text-align: center;
+        padding-bottom: 1.5rem;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        border: 0.0625rem solid #dee2e6;
+    }
+
+    .team-card:hover {
+        transform: translateY(-0.5rem);
+        box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.25);
+    }
+
+    .team-card img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+        transition: border-radius 0.3s ease;
+    }
+
+    .team-card:hover img {
+        border-radius: 0.5rem 0.5rem 0 0;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .card-body h5 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        color: #007bff;
+        letter-spacing: 0.05rem;
+    }
+
+    .card-body p {
+        font-size: 1.1rem;
+        color: #6c757d;
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+    }
+
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    .social-links a {
+        color: #007bff;
+        font-size: 2rem;
+        transition: color 0.2s ease-in-out;
+    }
+
+    .social-links a:hover {
+        color: #0056b3;
+    }
+
+    @media (max-width: 1200px) {
+        .team-container {
+            gap: 2.5rem;
+        }
+
+        .team-card {
+            width: 45%;
+            margin: 0 auto;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .team-card {
+            width: 60%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .team-card {
+            width: 90%;
+        }
+
+        .team-header h1 {
+            font-size: 2.5rem;
+        }
+
+        .team-header p {
+            font-size: 1.1rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .team-card {
+            width: 100%;
+        }
+    }
+    .team-card img {
+        height: 200px; /* Make images shorter */
+        object-fit: cover; /* Ensure images still cover the area */
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+        transition: border-radius 0.3s ease;
+    }
+
+    .team-card:hover img {
+        border-radius: 0.5rem 0.5rem 0 0;
+    }
+    .card-body h5{
+        font-size: 1.2rem;
+    }
+    .card-body p{
+        font-size: 0.9rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="team-header">
+    <h1>Meet the Team</h1>
+    <p>We are a passionate group working together to raise awareness about human trafficking through innovative solutions.</p>
+</section>
+
+<section class="team-section">
+    <div class="team-container">
+
+        <div class="team-card">
+            <img src="{% static 'images/noah.png' %}" alt="Noah Al-Samawi">
+            <div class="card-body">
+                <h5>Noah Al-Samawi</h5>
+                <p>Full-Stack Software Developer passionate about crafting intuitive user interfaces and seamless backends.</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/noah-al-samawi-058583197/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Noah-Samawi" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="team-card">
+            <img src="{% static 'images/laura.png' %}" alt="Nour Shbair">
+            <div class="card-body">
+                <h5>Nour Shbair</h5>
+                <p>Passionate Junior Full-Stack Developer crafting intuitive and visually appealing digital experiences. Problem-solver and continuous learner.</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/nourshbair/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/NourShbair" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="team-card">
+            <img src="{% static 'images/david.png' %}" alt="David Cotter">
+            <div class="card-body">
+                <h5>David Cotter</h5>
+                <p>Full-Stack Developer skilled in Django, Bootstrap, and JavaScript. Focused on user-friendly web apps.</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/david-cotter-junior-software-developer" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/trxdave" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="team-card">
+            <img src="{% static 'images/riman.png' %}" alt="Riman Farhood">
+            <div class="card-body">
+                <h5>Riman Farhood</h5>
+                <p>Curious junior developer and data scientist with a passion for analytical problem solving and creative tech solutions.</p>
+                <div class="social-links">
+                    <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="team-card">
+            <img src="{% static 'images/sonali.png' %}" alt="Sonali Patni">
+            <div class="card-body">
+                <h5>Sonali Patni</h5>
+                <p>Front-End Developer skilled in HTML, CSS, and JavaScript. Learning Django step by step!</p>
+                <div class="social-links">
+                    <a href="" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
