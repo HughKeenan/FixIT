@@ -62,7 +62,13 @@
                 border: 1px solid #dee2e6;
                 padding: 1rem;
                 border-radius: 8px;
-                background-color: white;
+                background-color: #f9f9f9;
+                {% comment %} border: 1px solid #ccc;
+                padding: 15px;
+                max-height: 500px;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column-reverse; /* newest messages on top */ {% endcomment %}
             }
             .user-msg, .bot-msg {
                 margin-bottom: 1rem;
@@ -264,7 +270,7 @@
         <!-- 🌐 Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand auth-logo" href="#">Fix<span>IT</span> <span class="emoji" style="font-size:2rem;color:#ffc107;">🛠️</span></a>
+                <a class="navbar-brand auth-logo" href="">Fix<span>IT</span> <span class="emoji" style="font-size:2rem;color:#ffc107;">🛠️</span></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
                 </button>
@@ -335,7 +341,7 @@
                     <span class="text-muted small">Making tech a little less scary</span>
                 </div>
                 <div class="footer-links mb-2">
-                    <a href="#" class="footer-link mx-2">About</a>
+                    <a href="about" class="footer-link mx-2">About</a>
                     <a href="#" class="footer-link mx-2">Contact</a>
                     <a href="#" class="footer-link mx-2">Privacy</a>
                 </div>
@@ -346,33 +352,45 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-        document.getElementById('chatForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const input = document.getElementById('userInput');
-            const chatBox = document.getElementById('chatBox');
-
-            const userMsg = `<div class="user-msg"><strong>You:</strong> ${input.value}</div>`;
-            chatBox.innerHTML += userMsg;
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            fetch('/ask-ai/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-            },
-            body: new URLSearchParams({ user_input: input.value })
-            })
-            .then(res => res.json())
-            .then(data => {
-            const reply = data.answer || "Sorry, I couldn't understand that.";
-            const botMsg = `<div class="bot-msg"><strong>FixIT:</strong> ${reply}</div>`;
-            chatBox.innerHTML += botMsg;
-            chatBox.scrollTop = chatBox.scrollHeight;
+            document.addEventListener("DOMContentLoaded", function () {
+              const form = document.getElementById('chatForm');
+              const input = document.getElementById('userInput');
+              const chatBox = document.getElementById('chatBox');
+          
+              form.addEventListener('submit', function (e) {
+                e.preventDefault();
+          
+                const question = input.value.trim();
+                if (!question) return;
+          
+                // Show user's message at the top
+                const userMsg = `<div class="user-msg"><strong>You:</strong> ${question}</div>`;
+                chatBox.innerHTML = userMsg + chatBox.innerHTML;
+          
+                fetch('/ask-ai/', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                  },
+                  body: new URLSearchParams({ user_input: question })
+                })
+                .then(res => res.json())
+                .then(data => {
+                  const reply = data.answer || "Sorry, I couldn't understand that.";
+                  const botMsg = `<div class="bot-msg"><strong>FixIT:</strong> ${reply}</div>`;
+                  chatBox.innerHTML = botMsg + chatBox.innerHTML;
+                })
+                .catch(err => {
+                  const errorMsg = `<div class="bot-msg text-danger"><strong>FixIT:</strong> Error getting response.</div>`;
+                  chatBox.innerHTML = errorMsg + chatBox.innerHTML;
+                });
+          
+                // Clear input and optionally blur
+                input.value = '';
+                input.blur();
+              });
             });
-
-            input.value = '';
-        });
         </script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
@@ -385,11 +403,11 @@
               });
             });
           </script>
-          <script>
+          {% comment %} <script>
             const chatBox = document.getElementById("chatBox");
             if (chatBox) {
               chatBox.scrollTop = chatBox.scrollHeight;
             }
-          </script>
+          </script> {% endcomment %}
     </body>
 </html>
