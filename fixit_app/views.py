@@ -228,6 +228,24 @@ def about(request):
 
     return render(request, 'about.html', context)
 
+def contact(request):
+    context = {'year': datetime.now().year}
+
+    if request.user.is_authenticated:
+        context['last_question'] = request.session.pop('last_question', None)
+        context['last_response'] = request.session.pop('last_response', None)
+
+    return render(request, 'contact.html', context)
+
+def privacy(request):
+    context = {'year': datetime.now().year}
+
+    if request.user.is_authenticated:
+        context['last_question'] = request.session.pop('last_question', None)
+        context['last_response'] = request.session.pop('last_response', None)
+
+    return render(request, 'privacy.html', context)
+
 def meet_the_team(request):
     context = {
         'title': 'Meet the Team',  # Example data
