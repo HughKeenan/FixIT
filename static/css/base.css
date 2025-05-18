@@ -34,7 +34,10 @@ h1{
 }
 
 .footer-text{
-    color: #f5f5f5 !important;
+    color: #f5f5f5 !important;}
+    
+.about_line{
+    color: #eeeeee
 }
   
 /* === NAVIGATION === */
