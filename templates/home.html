@@ -7,9 +7,32 @@
         <div class="hero-bg-shape"></div>
         <div class="container position-relative">
             <div class="hero-title">Tech Help, Made Simple</div>
-            <div class="hero-subtitle">Having trouble with tech? <br>Just ask, and I’ll explain it like you're my grandma. <span style="font-size:1.5rem;">😊</span></div>
+            <div class="hero-subtitle">Having trouble with tech? <br>Just ask, and I’ll explain it like you're my grandma. <span style="font-size:1.5rem;">👵🏻</span></div>
         </div>
     </div>
+
+    <div class="chat-box mb-4" id="chatBox">
+        {% if messages %}
+            {% for msg in messages %}
+                <div class="d-flex justify-content-end">
+                    <div class="user-msg"><strong>{{ msg.question }}</strong></div>
+                </div>  
+                <div class="bot-msg enhanced-response p-3 mb-3 rounded shadow-sm">
+                    <div class="d-flex align-items-start mb-2">
+                    <span class="me-2" style="font-size: 1rem;">🛠️</span>
+                    <strong class="fs-5 response-sender">FixIT:</strong>
+                    </div>
+                    <div class="response-text markdown-content">
+                        {{ msg.response|markdown:"default" }}
+                    </div>
+                </div>
+          
+            {% endfor %}
+        {% else %}
+            <div class="bot-msg"><strong>FixIT:</strong> Hi there! How can I help you today?</div>
+        {% endif %}
+    </div>
+
     <form id="chatForm" method="post" action="{% url 'ask_ai' %}">
         {% csrf_token %}
         <div class="input-group">
@@ -20,27 +43,6 @@
             <button type="submit" class="btn btn-primary">Ask</button>
         </div>
     </form>
-
-    <div class="chat-box mb-4" id="chatBox">
-        {% if messages %}
-            {% for msg in messages %}
-                <div class="bot-msg enhanced-response p-3 mb-3 rounded shadow-sm">
-                    <div class="d-flex align-items-start mb-2">
-                    <span class="me-2" style="font-size: 1rem;">🤖</span>
-                    <strong class="fs-5 response-sender">FixIT:</strong>
-                    </div>
-                    <div class="response-text markdown-content">
-                        {{ msg.response|markdown:"default" }}
-                    </div>
-                </div>
-                <div class="d-flex justify-content-end">
-                    <div class="user-msg"><strong>{{ msg.question }}</strong></div>
-                </div>            
-            {% endfor %}
-        {% else %}
-            <div class="bot-msg"><strong>FixIT:</strong> Hi there! How can I help you today?</div>
-        {% endif %}
-    </div>
 
     <script>
         document.getElementById('chatForm').addEventListener('submit', function(e) {
@@ -57,7 +59,7 @@
               <div class="user-msg"><strong>${question}</strong></div>
             </div>
           `;
-          chatBox.insertAdjacentHTML('afterbegin', userHTML);
+          chatBox.insertAdjacentHTML('beforeend', userHTML);
       
           fetch('/ask-ai/', {
             method: 'POST',
@@ -81,8 +83,8 @@
               <div class="response-text">${formattedReply}</div>
             </div>
           `;
-           chatBox.insertAdjacentHTML('afterbegin', botHTML);
-          
+           chatBox.insertAdjacentHTML('beforeend', botHTML);
+           chatBox.scrollTop = chatBox.scrollHeight;
            // Speak the answer
            speakAnswer(reply)
 
@@ -123,6 +125,13 @@
                 input.setAttribute('readonly', true);  // prevent double submit
                 input.value = '';                     // clear input
             });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const chatBox = document.getElementById('chatBox');
+            chatBox.scrollTop = chatBox.scrollHeight;
         });
     </script>
 
