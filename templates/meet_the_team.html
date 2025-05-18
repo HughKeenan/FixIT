@@ -7,58 +7,51 @@
 <link rel="stylesheet" href="{% static 'css/meettheteam.css' %}">
 <style>
     .team-header {
-        background-color: #007bff;
-        color: white;
-        padding: 3rem 0;
         text-align: center;
-        margin-bottom: 4rem;
-        border-radius: 0.5rem;
-        box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+        padding: 2rem 0;
+        background-color: #f8f9fa;
+        margin-bottom: 2rem;
     }
 
     .team-header h1 {
-        font-size: 3rem;
-        font-weight: bold;
-        margin-bottom: 1.5rem;
-        letter-spacing: 0.1rem;
-        text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+        font-size: 2.5rem;
+        color: #007bff;
+        margin-bottom: 1rem;
     }
 
     .team-header p {
-        font-size: 1.2rem;
-        max-width: 75%;
+        font-size: 1.1rem;
+        color: #343a40;
+        max-width: 800px;
         margin: 0 auto;
-        line-height: 1.7;
-        color: #e9ecef;
     }
 
     .team-section {
-        padding: 3rem 0;
+        padding: 2rem 0;
     }
 
     .team-container {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 3rem;
-        max-width: 1400px;
+        gap: 2rem;
+        max-width: 1200px;
         margin: 0 auto;
     }
 
     .team-card {
-        background-color: white;
+        background: #ffffff;
         border-radius: 1rem;
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-        width: 320px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 300px;
         text-align: center;
-        padding-bottom: 1.5rem;
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        border: 0.0625rem solid #dee2e6;
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     }
 
     .team-card:hover {
-        transform: translateY(-0.5rem);
-        box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.25);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     }
 
     .team-card img {
@@ -67,42 +60,34 @@
         object-fit: cover;
         border-top-left-radius: 1rem;
         border-top-right-radius: 1rem;
-        transition: border-radius 0.3s ease;
     }
 
-    .team-card:hover img {
-        border-radius: 0.5rem 0.5rem 0 0;
-    }
-
-    .card-body {
+    .team-card .card-body {
         padding: 1.5rem;
     }
 
-    .card-body h5 {
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
+    .team-card h5 {
+        font-size: 1.4rem;
         color: #007bff;
-        letter-spacing: 0.05rem;
+        margin-bottom: 0.5rem;
     }
 
-    .card-body p {
-        font-size: 1.1rem;
-        color: #6c757d;
-        margin-bottom: 1.5rem;
-        line-height: 1.8;
+    .team-card p {
+        font-size: 1rem;
+        color: #343a40;
+        margin-bottom: 1rem;
     }
 
     .social-links {
         display: flex;
         justify-content: center;
-        gap: 1.5rem;
+        gap: 1rem;
         margin-top: 1rem;
     }
 
     .social-links a {
         color: #007bff;
-        font-size: 2rem;
+        font-size: 1.4rem;
         transition: color 0.2s ease-in-out;
     }
 
@@ -110,58 +95,46 @@
         color: #0056b3;
     }
 
-    @media (max-width: 1200px) {
-        .team-container {
-            gap: 2.5rem;
-        }
-
-        .team-card {
-            width: 45%;
-            margin: 0 auto;
-        }
-    }
-
     @media (max-width: 992px) {
         .team-card {
-            width: 60%;
+            max-width: 400px;
         }
     }
 
     @media (max-width: 768px) {
-        .team-card {
-            width: 90%;
-        }
-
         .team-header h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
         }
 
         .team-header p {
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
-    }
 
-    @media (max-width: 576px) {
         .team-card {
-            width: 100%;
+            max-width: 100%;
+        }
+
+        .team-card img {
+            height: 200px;
         }
     }
-    .team-card img {
-        height: 200px; /* Make images shorter */
-        object-fit: cover; /* Ensure images still cover the area */
-        border-top-left-radius: 1rem;
-        border-top-right-radius: 1rem;
-        transition: border-radius 0.3s ease;
+
+    .navbar-brand {
+        font-size: 2.7rem;
+        font-weight: 900;
+        letter-spacing: 2px;
+        color: #007bff;
+        background: linear-gradient(90deg, #007bff 60%, #00c6ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+        text-shadow: 0 4px 24px #00c6ff22;
+        filter: drop-shadow(0 2px 10px #00c6ff44);
     }
 
-    .team-card:hover img {
-        border-radius: 0.5rem 0.5rem 0 0;
-    }
-    .card-body h5{
-        font-size: 1.2rem;
-    }
-    .card-body p{
-        font-size: 0.9rem;
+    .navbar-brand span {
+        color: #343a40 !important;
+        -webkit-text-fill-color: #343a40;
     }
 </style>
 {% endblock %}
@@ -174,7 +147,6 @@
 
 <section class="team-section">
     <div class="team-container">
-
         <div class="team-card">
             <img src="{% static 'images/noah.png' %}" alt="Noah Al-Samawi">
             <div class="card-body">
@@ -186,7 +158,6 @@
                 </div>
             </div>
         </div>
-
         <div class="team-card">
             <img src="{% static 'images/laura.png' %}" alt="Nour Shbair">
             <div class="card-body">
@@ -198,7 +169,6 @@
                 </div>
             </div>
         </div>
-
         <div class="team-card">
             <img src="{% static 'images/david.png' %}" alt="David Cotter">
             <div class="card-body">
@@ -210,7 +180,6 @@
                 </div>
             </div>
         </div>
-
         <div class="team-card">
             <img src="{% static 'images/riman.png' %}" alt="Riman Farhood">
             <div class="card-body">
@@ -222,19 +191,17 @@
                 </div>
             </div>
         </div>
-
         <div class="team-card">
             <img src="{% static 'images/sonali.png' %}" alt="Sonali Patni">
             <div class="card-body">
                 <h5>Sonali Patni</h5>
                 <p>Front-End Developer skilled in HTML, CSS, and JavaScript. Learning Django step by step!</p>
                 <div class="social-links">
-                    <a href="" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-github"></i></a>
                 </div>
             </div>
         </div>
-
     </div>
 </section>
 {% endblock %}

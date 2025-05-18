@@ -1,11 +1,8 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>FixIT – Ask Me Anything</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <style>
         body {
             background: linear-gradient(120deg, #a1c4fd, #c2e9fb, #f8fafc, #a1c4fd);
@@ -298,48 +295,14 @@
             }
         }
     </style>
-</head>
-<body>
+{% endblock %}
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-        <div class="container">
-            <a class="navbar-brand auth-logo" href="">Fix<span>IT</span> <span class="emoji" style="font-size:2rem;color:#ffc107;">🛠️</span></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'history' %}">History</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'meet_the_team' %}">Meet the Team</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'meet_the_team' %}">Meet the Team</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+{% block content %}
     <div class="hero-section">
         <div class="hero-bg-shape"></div>
         <div class="container position-relative">
             <div class="hero-title">Tech Help, Made Simple</div>
-            <div class="hero-subtitle">Having trouble with tech? <br>Just ask, and I’ll explain it like you're my grandma. <span style="font-size:1.5rem;">😊</span></div>
+            <div class="hero-subtitle">Having trouble with tech? <br>Just ask, and I'll explain it like you're my grandma. <span style="font-size:1.5rem;">😊</span></div>
         </div>
     </div>
 
@@ -367,25 +330,6 @@
             {% endif %}
         </div>
     </main>
-
-    <footer class="footer-fancy py-4 text-center mt-5">
-        <div class="container">
-            <div class="d-flex flex-column flex-md-row align-items-center justify-content-center gap-3 mb-2">
-                <span class="footer-logo fw-bold" style="font-size:1.3rem; color:#007bff;">
-                    Fix<span style="color:#343a40;">IT</span> <span style="font-size:1.2rem;color:#ffc107;">🛠️</span>
-                </span>
-                <span class="text-muted small">|</span>
-                <span class="text-muted small">Making tech a little less scary</span>
-            </div>
-            <div class="footer-links mb-2">
-                <a href="about" class="footer-link mx-2">About</a>
-                <a href="#" class="footer-link mx-2">Contact</a>
-                <a href="#" class="footer-link mx-2">Privacy</a>
-            </div>
-            <p class="mb-0 text-muted small">&copy; {% now "Y" %} FixIT. All rights reserved.</p>
-        </div>
-    </footer>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -440,5 +384,4 @@
             });
         });
     </script>
-</body>
-</html>
+{% endblock %}
