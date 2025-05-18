@@ -1,5 +1,7 @@
 # 🛠️ FixIT - AI-Powered Tech Support for Families
 
+🌐 **Live Site**: [https://fixit-af0e14cb45cc.herokuapp.com/](https://fixit-af0e14cb45cc.herokuapp.com/)
+
 [![Logo](static/images/readme_images/fixit_logo.png)](link_to_your_repo)
 
 ---
@@ -132,5 +134,5 @@ If you need help or clarification, feel free to contact:
 We extend our heartfelt gratitude to the following:
 
 - **Code Institute** for organizing the "Code to Protect" hackathon.
-- **HelpHub Heroes Team** for their dedication and hard work.
-- **Subject Matter Experts** for their invaluable insights on HelpHub Heroes.
+- **FixIT Team** for their dedication and hard work.
+- **Subject Matter Experts** for their invaluable insights on FixIT.
