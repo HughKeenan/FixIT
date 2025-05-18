@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load markdown_deux_tags %}
 {% block content %}
 
     <div class="hero-section">
@@ -9,10 +10,6 @@
             <div class="hero-subtitle">Having trouble with tech? <br>Just ask, and I’ll explain it like you're my grandma. <span style="font-size:1.5rem;">😊</span></div>
         </div>
     </div>
-    {% comment %} <div id="voice-input-group">
-        <button class="btn btn-outline-secondary btn-sm" id="voiceInput">🎙️ Speak Instead</button>
-        <span class="text-muted ms-2 small">Use your voice if typing is tricky!</span>
-    </div> {% endcomment %}
     <form id="chatForm" method="post" action="{% url 'ask_ai' %}">
         {% csrf_token %}
         <div class="input-group">
@@ -24,13 +21,22 @@
     <div class="chat-box mb-4" id="chatBox">
         {% if messages %}
             {% for msg in messages %}
-                <div class="bot-msg"><strong>FixIT:</strong> {{ msg.response }}</div>
-                <div class="user-msg"><strong>You:</strong> {{ msg.question }}</div>
+                <div class="bot-msg enhanced-response p-3 mb-3 rounded shadow-sm">
+                    <button class="copy-btn" title="Copy message">📋</button>
+                    <div class="d-flex align-items-start mb-2">
+                    <span class="me-2" style="font-size: 1rem;">🤖</span>
+                    <strong class="fs-5 response-sender">FixIT:</strong>
+                    </div>
+                    <div class="response-text markdown-content">
+                        {{ msg.response|markdown:"default" }}
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <div class="user-msg"><strong>{{ msg.question }}</strong></div>
+                </div>            
             {% endfor %}
         {% else %}
             <div class="bot-msg"><strong>FixIT:</strong> Hi there! How can I help you today?</div>
         {% endif %}
     </div>
-
-
 {% endblock %}
