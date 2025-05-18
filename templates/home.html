@@ -7,37 +7,42 @@
         <div class="hero-bg-shape"></div>
         <div class="container position-relative">
             <div class="hero-title">Tech Help, Made Simple</div>
-            <div class="hero-subtitle">Having trouble with tech? <br>Just ask, and I’ll explain it like you're my grandma. <span style="font-size:1.5rem;">😊</span></div>
+            <div class="hero-subtitle">Having trouble with tech? <br>Just ask, and I’ll explain it like you're my grandma. <span style="font-size:1.5rem;">👵🏻</span></div>
         </div>
     </div>
-    <form id="chatForm" method="post" action="{% url 'ask_ai' %}">
-        {% csrf_token %}
-        <div class="input-group">
-            <input type="text" name="user_input" id="userInput" class="form-control" placeholder="Type your question..." required>
-            <button type="submit" class="btn btn-primary">Ask</button>
-        </div>
-    </form>
 
     <div class="chat-box mb-4" id="chatBox">
         {% if messages %}
             {% for msg in messages %}
+                <div class="d-flex justify-content-end">
+                    <div class="user-msg"><strong>{{ msg.question }}</strong></div>
+                </div>  
                 <div class="bot-msg enhanced-response p-3 mb-3 rounded shadow-sm">
                     <div class="d-flex align-items-start mb-2">
-                    <span class="me-2" style="font-size: 1rem;">🤖</span>
+                    <span class="me-2" style="font-size: 1rem;">🛠️</span>
                     <strong class="fs-5 response-sender">FixIT:</strong>
                     </div>
                     <div class="response-text markdown-content">
                         {{ msg.response|markdown:"default" }}
                     </div>
                 </div>
-                <div class="d-flex justify-content-end">
-                    <div class="user-msg"><strong>{{ msg.question }}</strong></div>
-                </div>            
+          
             {% endfor %}
         {% else %}
             <div class="bot-msg"><strong>FixIT:</strong> Hi there! How can I help you today?</div>
         {% endif %}
     </div>
+
+    <form id="chatForm" method="post" action="{% url 'ask_ai' %}">
+        {% csrf_token %}
+        <div class="input-group">
+            <input type="text" name="user_input" id="userInput" class="form-control" placeholder="Type your question..." required>
+            <button type="button" class="btn" id="voiceBtn" title="Speak your question 🎤">
+                <i class="fas fa-microphone"></i>
+            </button>
+            <button type="submit" class="btn btn-primary">Ask</button>
+        </div>
+    </form>
 
     <script>
         document.getElementById('chatForm').addEventListener('submit', function(e) {
@@ -54,7 +59,7 @@
               <div class="user-msg"><strong>${question}</strong></div>
             </div>
           `;
-          chatBox.insertAdjacentHTML('afterbegin', userHTML);
+          chatBox.insertAdjacentHTML('beforeend', userHTML);
       
           fetch('/ask-ai/', {
             method: 'POST',
@@ -70,16 +75,20 @@
             const formattedReply = formatMarkdown(reply);
       
             const botHTML = `
-              <div class="bot-msg enhanced-response p-3 mb-3 rounded shadow-sm markdown-content">
-                <div class="d-flex align-items-start mb-2">
-                  <span class="me-2" style="font-size: 1.5rem;">🤖</span>
-                  <strong class="text-primary fs-5">FixIT</strong>
-                </div>
-                <div class="response-text">${formattedReply}</div>
+            <div class="bot-msg enhanced-response p-3 mb-3 rounded shadow-sm markdown-content">
+              <div class="d-flex align-items-start mb-2">
+                <span class="me-2" style="font-size: 1.5rem;">🤖</span>
+                <strong class="text-primary fs-5">FixIT</strong>
               </div>
-            `;
-            chatBox.insertAdjacentHTML('afterbegin', botHTML);
-          });
+              <div class="response-text">${formattedReply}</div>
+            </div>
+          `;
+           chatBox.insertAdjacentHTML('beforeend', botHTML);
+           chatBox.scrollTop = chatBox.scrollHeight;
+           // Speak the answer
+           speakAnswer(reply)
+
+           });
       
           input.value = '';
         });
@@ -94,6 +103,17 @@
             .replace(/\n/g, '<br>')                          // Single line breaks
             .replace(/^(<br>)+|(<br>)+$/g, '');              // Trim leading/trailing <br>
         }
+
+        function speakAnswer(text) {
+            if ('speechSynthesis' in window) {
+              const utterance = new SpeechSynthesisUtterance(text);
+              utterance.lang = 'en-US';
+              utterance.rate = 1;
+              speechSynthesis.speak(utterance);
+            } else {
+              console.warn("Speech synthesis not supported in this browser.");
+            }
+        }
     </script>
 
     <script>
@@ -105,6 +125,56 @@
                 input.setAttribute('readonly', true);  // prevent double submit
                 input.value = '';                     // clear input
             });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const chatBox = document.getElementById('chatBox');
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const voiceBtn = document.getElementById('voiceBtn');
+            const userInput = document.getElementById('userInput');
+            const chatForm = document.getElementById('chatForm');
+        
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                const recognition = new SpeechRecognition();
+                recognition.lang = 'en-US';
+                recognition.interimResults = false;
+                recognition.maxAlternatives = 1;
+        
+                voiceBtn.addEventListener('click', () => {
+                    voiceBtn.disabled = true;
+                    voiceBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                    recognition.start();
+                });
+        
+                recognition.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript;
+                    userInput.value = transcript;
+        
+                    // Optionally auto-submit
+                    chatForm.dispatchEvent(new Event('submit'));
+                };
+        
+                recognition.onerror = (event) => {
+                    console.error('Speech recognition error:', event.error);
+                    alert('Voice error: ' + event.error);
+                };
+        
+                recognition.onend = () => {
+                    voiceBtn.disabled = false;
+                    voiceBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+                };
+            } else {
+                voiceBtn.disabled = true;
+                voiceBtn.title = "Voice recognition not supported by your browser.";
+            }
         });
     </script>
 {% endblock %}

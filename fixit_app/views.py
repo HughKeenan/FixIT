@@ -24,6 +24,7 @@ client = openai.OpenAI(api_key=settings.OPENAI_API_KEY)
 
 @csrf_exempt
 def ask_ai(request):
+    print(request)
     if request.method == 'POST':
         user_input = request.POST.get('user_input')
         resend = request.POST.get('resend') == 'true'
@@ -211,7 +212,7 @@ def login_view(request):
 def home(request):
     context = {'year': datetime.now().year, 'messages': []}
     if request.user.is_authenticated:
-        messages = Message.objects.filter(user=request.user).order_by('-created_at')
+        messages = Message.objects.filter(user=request.user).order_by('created_at')
         context['last_question'] = request.session.pop('last_question', None)
         context['last_response'] = request.session.pop('last_response', None)
         context['messages'] = messages
@@ -226,6 +227,24 @@ def about(request):
         context['last_response'] = request.session.pop('last_response', None)
 
     return render(request, 'about.html', context)
+
+def contact(request):
+    context = {'year': datetime.now().year}
+
+    if request.user.is_authenticated:
+        context['last_question'] = request.session.pop('last_question', None)
+        context['last_response'] = request.session.pop('last_response', None)
+
+    return render(request, 'contact.html', context)
+
+def privacy(request):
+    context = {'year': datetime.now().year}
+
+    if request.user.is_authenticated:
+        context['last_question'] = request.session.pop('last_question', None)
+        context['last_response'] = request.session.pop('last_response', None)
+
+    return render(request, 'privacy.html', context)
 
 def meet_the_team(request):
     context = {
