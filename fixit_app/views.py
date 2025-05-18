@@ -17,35 +17,40 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from django.utils.timezone import localtime
 import textwrap
-
+import re
 
 openai.api_key = settings.OPENAI_API_KEY
 client = openai.OpenAI(api_key=settings.OPENAI_API_KEY)
 
-@login_required
 @csrf_exempt
 def ask_ai(request):
     if request.method == 'POST':
         user_input = request.POST.get('user_input')
-
         resend = request.POST.get('resend') == 'true'
 
         if not user_input:
             return redirect('home')
-        
+
         try:
             answer = get_simple_answer(user_input)
+            formatted_answer = fix_markdown_formatting(answer)
 
-            # Save to session to show on homepage
+            # Save to session for display on homepage
             request.session['last_question'] = user_input
-            request.session['last_response'] = answer
+            request.session['last_response'] = formatted_answer
 
-            Message.objects.create(user=request.user, question=user_input, response=answer)
-
+            # Save to DB only if user is logged in
+            if request.user.is_authenticated:
+                Message.objects.create(
+                    user=request.user,
+                    question=user_input,
+                    response=formatted_answer
+                )
+            
             if resend:
                 return redirect('home')
 
-            return JsonResponse({'answer': answer})
+            return JsonResponse({'answer': formatted_answer})
 
         except Exception as e:
             if request.headers.get('x-requested-with') == 'XMLHttpRequest':
@@ -53,7 +58,8 @@ def ask_ai(request):
             else:
                 return redirect('home')
 
-    return JsonResponse({'answer': answer})
+    # Handle non-POST requests gracefully
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
 
 
 
@@ -74,8 +80,26 @@ def get_simple_answer(user_question):
         temperature=0.7,
         max_tokens=200
     )
+    
     return response.choices[0].message.content.strip()
 
+def fix_markdown_formatting(text):
+    """
+    Clean and convert AI text response into proper Markdown format.
+    """
+    # Convert lines like '### Ingredients:' into headings on new lines
+    text = re.sub(r'###\s*(.+?):', r'\n### \1\n', text)
+
+    # Ensure numbered steps are on their own line
+    text = re.sub(r'(\d\.)\s*•?\s*\*\*(.+?)\*\*', r'\n\1 **\2**', text)
+
+    # Fix any bullet misuse: • becomes -
+    text = text.replace('•', '-')
+
+    # Fix double dashes
+    text = text.replace('--', '—')
+
+    return text.strip()
 
 @login_required
 def message_history(request):
