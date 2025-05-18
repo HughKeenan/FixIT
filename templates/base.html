@@ -9,7 +9,7 @@
         <link href="{% static 'css/base.css' %}" rel="stylesheet">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
             <div class="container">
                 <a class="navbar-brand auth-logo" href="/">Fix<span>IT</span> <span class="emoji" style="font-size:2rem;color:#ffc107;">🛠️</span></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -64,95 +64,5 @@
         </footer>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-        <script>
-            document.getElementById('chatForm').addEventListener('submit', function(e) {
-              e.preventDefault();
-          
-              const input = document.getElementById('userInput');
-              const chatBox = document.getElementById('chatBox');
-              const question = input.value.trim();
-              if (!question) return;
-          
-              // Show user message aligned right
-              const userHTML = `
-                <div class="d-flex justify-content-end">
-                  <div class="user-msg"><strong>${question}</strong></div>
-                </div>
-              `;
-              chatBox.insertAdjacentHTML('afterbegin', userHTML);
-          
-              fetch('/ask-ai/', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded',
-                  'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                },
-                body: new URLSearchParams({ user_input: question })
-              })
-              .then(res => res.json())
-              .then(data => {
-                const reply = data.answer || "Sorry, I couldn't understand that.";
-                const formattedReply = formatMarkdown(reply);
-          
-                const botHTML = `
-                  <div class="bot-msg enhanced-response p-3 mb-3 rounded shadow-sm markdown-content">
-                    <div class="d-flex align-items-start mb-2">
-                      <span class="me-2" style="font-size: 1.5rem;">🤖</span>
-                      <strong class="text-primary fs-5">FixIT</strong>
-                    </div>
-                    <div class="response-text">${formattedReply}</div>
-                  </div>
-                `;
-                chatBox.insertAdjacentHTML('afterbegin', botHTML);
-              });
-          
-              input.value = '';
-            });
-          
-            function formatMarkdown(text) {
-              return text
-                .replace(/\r\n/g, '\n')                          // Normalize line breaks
-                .replace(/\n{3,}/g, '\n\n')                      // Collapse 3+ newlines
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
-                .replace(/### (.+?)\n/g, '<h3>$1</h3>\n')         // Headers
-                .replace(/\n{2}/g, '<br>')                   // Paragraph breaks
-                .replace(/\n/g, '<br>')                          // Single line breaks
-                .replace(/^(<br>)+|(<br>)+$/g, '');              // Trim leading/trailing <br>
-            }
-        </script>
-        
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                document.querySelectorAll('.copy-btn').forEach(button => {
-                  button.addEventListener('click', () => {
-                    // Find the closest .bot-msg parent and get its message content
-                    const botMsg = button.closest('.bot-msg');
-                    const text = botMsg.querySelector('.message-content').innerText;
-              
-                    // Copy to clipboard
-                    navigator.clipboard.writeText(text).then(() => {
-                      // Optional: give user feedback
-                      button.textContent = '✔️';
-                      setTimeout(() => button.textContent = '📋', 1500);
-                    }).catch(() => {
-                      alert('Failed to copy text');
-                    });
-                  });
-                });
-              });  
-        </script>
-
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const form = document.querySelector('form');
-                const input = document.getElementById('userInput');
-
-                form.addEventListener('submit', function () {
-                    input.setAttribute('readonly', true);  // prevent double submit
-                    input.value = '';                     // clear input
-                });
-            });
-        </script>
     </body>
 </html>

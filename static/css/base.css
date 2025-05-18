@@ -1,20 +1,21 @@
 /* === GENERAL RESET & BASE === */
 body {
-    background: linear-gradient(120deg, #c0f0ff, #f1f1f1, #f8fafc, #adadad);
+    background: linear-gradient(80deg, #000000, #023b4b, #016863, #b9d235);
+
     background-size: 300% 300%;
     animation: gradientBG 12s ease-in-out infinite;
     min-height: 100vh;
     font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
 }
   
-h1 {
-    color: #212529;
+h1{
+    color: #eeeeee;
 }
   
 /* === NAVIGATION === */
 .navbar,
 nav {
-    background: white;
+    background: #f5f5f5;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
   
@@ -48,7 +49,7 @@ nav {
 .hero-title {
     font-size: 3.2rem;
     font-weight: 800;
-    color: #0098c6;
+    color: #ffffff;
     letter-spacing: 2px;
     margin-bottom: 0.5rem;
     animation: fadeInDown 1s;
@@ -56,11 +57,25 @@ nav {
   
 .hero-subtitle {
     font-size: 1.4rem;
-    color: #484949;
+    color: #ffffff;
     margin-top: 1rem;
     animation: fadeInUp 1.2s;
 }
   
+#historyListTitle{
+    color: #f5f5f5;
+}
+
+.about_text{
+    color: #f5f5f5;
+}
+
+.team-card p,
+.team-card h2,
+.team-card h5,
+.team-header p{
+    color: #f5f5f5;
+}
 /* === CHAT BOX === */
 .chat-box {
     background: #fff;
@@ -127,7 +142,7 @@ nav {
 }
   
 .enhanced-response:hover {
-    background: #e4f0ff;
+    background: #f2fff0;
 }
   
 .response-text {
@@ -169,13 +184,14 @@ nav {
 }
   
 .input-group input {
-    border-radius: 20px;
+    border-radius: 10px;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
     font-size: 1.1rem;
+    height: 4rem;
 }
   
 .input-group button {
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 1.1rem;
 }
   
@@ -210,12 +226,22 @@ nav {
     border-color: #007395;
 }
 
+.btn-secondary{
+    background-color: #9fa1a3 !important;
+}
+
+#downloadBtn{
+    background-color: #72a946 !important;
+    border-color: #ffffff !important;
+
+}
 /* === LISTS === */
 .list-group-item {
     border-radius: 1rem;
     margin-bottom: 1rem;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s ease;
+    height: 4rem;
 }
   
 .list-group-item:hover {
@@ -351,7 +377,7 @@ nav {
   
 /* === FOOTER === */
 footer {
-    background: white;
+    background: #f5f5f5;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
     font-size: 0.9rem;
 }
