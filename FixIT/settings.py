@@ -49,7 +49,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "markdownify",
     "fixit_app",
+    "markdown_deux",
 ]
 
 MIDDLEWARE = [
@@ -110,6 +112,15 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+MARKDOWNIFY = {
+    "WHITELIST_TAGS": ["p", "strong", "em", "ul", "li", "ol", "a", "br", "code", "hr",
+        "h1", "h2", "h3", "h4", "h5", "h6" ],
+    "WHITELIST_ATTRS": ["href"],
+    "WHITELIST_PROTOCOLS": ["http", "https"],
+    "STRIP": False,
+    "MARKDOWN_EXTENSIONS": ["markdown.extensions.extra", "markdown.extensions.nl2br"],
+}
 
 
 # Internationalization
