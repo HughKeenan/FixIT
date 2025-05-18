@@ -3,32 +3,35 @@
 {% block content %}
 
 
-    <h2 class="mb-4 text-center">Your Past Questions</h2>
+    <h2 class="mb-4 text-center" id="historyListTitle">Your Past Questions</h2>
 
     {% if messages %}
+        <form method="get" action="{% url 'generate_pdf' %}" class="text-end mb-3">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary" id="downloadBtn">Download History</button>
+        </form>
         <div class="list-group">
             {% for msg in messages %}
-                <div class="list-group-item">
-                    <h5><strong>You asked:</strong> {{ msg.question }}</h5>
-                    <p><strong>FixIT replied:</strong> {{ msg.response }}</p>
-                    <form method="post" action="{% url 'ask_ai' %}" class="d-inline">
-                        {% csrf_token %}
-                        <input type="hidden" name="user_input" value="{{ msg.question }}">
-                        <input type="hidden" name="resend" value="true">
-                        <button type="submit" class="btn btn-sm btn-outline-primary">Re-ask</button>
-                    </form>
-                    <form method="post" action="{% url 'delete_message' msg.pk %}" class="d-inline ms-2">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                    </form>
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-0"><strong>{{ msg.question }}</strong></h5>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <form method="post" action="{% url 'ask_ai' %}" class="d-inline">
+                            {% csrf_token %}
+                            <input type="hidden" name="user_input" value="{{ msg.question }}">
+                            <input type="hidden" name="resend" value="true">
+                            <button type="submit" class="btn btn-sm btn-outline-primary">Re-ask</button>
+                        </form>
+                        <form method="post" action="{% url 'delete_message' msg.pk %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    </div>
                 </div>
             {% endfor %}
         </div>
         <div>
-            <form method="get" action="{% url 'generate_pdf' %}" class="text-end mb-3">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-primary">Download History</button>
-            </form>
             <form method="post" action="{% url 'clear_history' %}" class="text-end mb-3">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-danger">Clear All History</button>
