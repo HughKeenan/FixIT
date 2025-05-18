@@ -348,8 +348,12 @@ nav {
 #downloadBtn{
     background-color: #72a946 !important;
     border-color: #ffffff !important;
-
 }
+
+#voiceBtn{
+    background-color: #ffffff;
+}
+
 /* === LISTS === */
 .list-group-item {
     border-radius: 1rem;
