@@ -7,15 +7,43 @@ body {
     min-height: 100vh;
     font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
 }
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+}
+
+/* Optional: style your footer */
+.footer {
+    padding: 1rem;
+    text-align: center;
+}
   
 h1{
     color: #eeeeee;
+}
+
+.footer-text{
+    color: #f5f5f5 !important;}
+    
+.about_line{
+    color: #eeeeee
 }
   
 /* === NAVIGATION === */
 .navbar,
 nav {
-    background: #f5f5f5;
+    background: #ebebeb;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
   
@@ -63,7 +91,7 @@ nav {
 }
   
 #historyListTitle{
-    color: #f5f5f5;
+    color: #ebebeb;
 }
 
 .about_text{
@@ -174,6 +202,8 @@ nav {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-size: 1.1rem;
     transition: transform 0.3s ease-in-out;
+
+    scroll-behavior: smooth;
 }
   
 .chat-box:hover {
@@ -320,8 +350,12 @@ nav {
 #downloadBtn{
     background-color: #72a946 !important;
     border-color: #ffffff !important;
-
 }
+
+#voiceBtn{
+    background-color: #ffffff;
+}
+
 /* === LISTS === */
 .list-group-item {
     border-radius: 1rem;
@@ -329,6 +363,7 @@ nav {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s ease;
     height: 4rem;
+    background-color: #ebebeb
 }
   
 .list-group-item:hover {
@@ -464,7 +499,6 @@ nav {
   
 /* === FOOTER === */
 footer {
-    background: #f5f5f5;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
     font-size: 0.9rem;
 }
@@ -503,6 +537,31 @@ footer {
     display: inline-block;
 }
   
+.error-container {
+    text-align: center;
+    padding: 100px 20px;
+    font-family: Arial, sans-serif;
+}
+  
+.error-container h1 {
+    font-size: 3rem;
+    color: #007395;
+}
+  
+.error-container p {
+    font-size: 1.2rem;
+    margin: 20px 0;
+    color: #333;
+}
+  
+.error-container .btn {
+    padding: 10px 20px;
+    background-color: #007395;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
 /* === ANIMATIONS === */
 @keyframes gradientBG {
     0% { background-position: 0% 50%; }
@@ -544,7 +603,7 @@ footer {
     from { box-shadow: 0 0 8px 2px #00c6ff44; }
     to { box-shadow: 0 0 18px 6px #0297c433; }
 }
-  
+
 /* === RESPONSIVE TWEAKS === */
 @media (max-width: 768px) {
     .hero-title { font-size: 2rem; }

@@ -14,7 +14,7 @@
             {% for msg in messages %}
                 <div class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
-                        <h5 class="mb-0"><strong>{{ msg.question }}</strong></h5>
+                        <p class="mb-0"><strong>{{ msg.question }}</strong></p>
                     </div>
                     <div class="d-flex gap-2">
                         <form method="post" action="{% url 'ask_ai' %}" class="d-inline">
