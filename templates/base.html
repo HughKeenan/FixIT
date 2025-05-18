@@ -7,7 +7,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>">
+        <link rel="icon" type="image/x-icon" href="{% static 'images/favicon/favicon.ico' %}">
+
+
         <link href="{% static 'css/base.css' %}" rel="stylesheet">
     </head>
     <body>
@@ -38,9 +40,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'meet_the_team' %}">Meet the Team</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'about' %}">About</a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -62,8 +61,8 @@
                     </div>
                     <div class="footer-links mb-2">
                         <a href="{% url 'about' %}" class="footer-link mx-2">About</a>
-                        <a href="{% url 'contact' %}" class="footer-link mx-2">Contact</a>
-                        <a href="{% url 'privacy' %}" class="footer-link mx-2">Privacy</a>
+                        <a href="#" class="footer-link mx-2">Contact</a>
+                        <a href="#" class="footer-link mx-2">Privacy</a>
                     </div>
                     <p class="mb-0 footer-text text-muted small">&copy; {% now "Y" %} FixIT. All rights reserved.</p>
                 </div>
