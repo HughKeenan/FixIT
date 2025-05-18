@@ -24,6 +24,7 @@ client = openai.OpenAI(api_key=settings.OPENAI_API_KEY)
 
 @csrf_exempt
 def ask_ai(request):
+    print(request)
     if request.method == 'POST':
         user_input = request.POST.get('user_input')
         resend = request.POST.get('resend') == 'true'
