@@ -134,5 +134,5 @@ If you need help or clarification, feel free to contact:
 We extend our heartfelt gratitude to the following:
 
 - **Code Institute** for organizing the "Code to Protect" hackathon.
-- **HelpHub Heroes Team** for their dedication and hard work.
-- **Subject Matter Experts** for their invaluable insights on HelpHub Heroes.
+- **FixIT Team** for their dedication and hard work.
+- **Subject Matter Experts** for their invaluable insights on FixIT.
