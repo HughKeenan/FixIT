@@ -43,7 +43,7 @@ h1{
 /* === NAVIGATION === */
 .navbar,
 nav {
-    background: #f5f5f5;
+    background: #ebebeb;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
   
@@ -91,7 +91,7 @@ nav {
 }
   
 #historyListTitle{
-    color: #f5f5f5;
+    color: #ebebeb;
 }
 
 .about_text{
@@ -202,6 +202,8 @@ nav {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-size: 1.1rem;
     transition: transform 0.3s ease-in-out;
+
+    scroll-behavior: smooth;
 }
   
 .chat-box:hover {
@@ -361,6 +363,7 @@ nav {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s ease;
     height: 4rem;
+    background-color: #ebebeb
 }
   
 .list-group-item:hover {
