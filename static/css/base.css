@@ -7,9 +7,34 @@ body {
     min-height: 100vh;
     font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
 }
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+}
+
+/* Optional: style your footer */
+.footer {
+    padding: 1rem;
+    text-align: center;
+}
   
 h1{
     color: #eeeeee;
+}
+
+.footer-text{
+    color: #f5f5f5 !important;
 }
   
 /* === NAVIGATION === */
@@ -464,7 +489,6 @@ nav {
   
 /* === FOOTER === */
 footer {
-    background: #f5f5f5;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
     font-size: 0.9rem;
 }
