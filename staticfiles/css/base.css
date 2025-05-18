@@ -545,19 +545,20 @@ footer {
   
 .error-container h1 {
     font-size: 3rem;
-    color: #007395;
+    color: #ffffff;
 }
   
 .error-container p {
     font-size: 1.2rem;
     margin: 20px 0;
-    color: #333;
+    color: #ffffff;
 }
   
 .error-container .btn {
     padding: 10px 20px;
-    background-color: #007395;
-    color: white;
+    background-color: #81ad4c;
+    border-color: #ffffff;
+    color: #ffffff;
     text-decoration: none;
     border-radius: 5px;
 }

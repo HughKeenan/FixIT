@@ -109,11 +109,11 @@ Many older users struggle with basic tech problems and don’t always have immed
 
 ## 🧑‍🤝‍🧑 Team
 
-- **Nour** *(https://github.com/NourShbair)*  
-- **Noah**  (https://github.com/Noah-Samawi)
-- **Hugh**  (https://github.com/HughKeenan)
-- **Elena**  (https://github.com/Enzolita)
-- **Sylveria**  ()
+- [**Nour**](https://github.com/NourShbair)  
+- [**Noah**](https://github.com/Noah-Samawi)
+- [**Hugh**](https://github.com/HughKeenan)
+- [**Elena**](https://github.com/Enzolita)
+- **Sylveria**
  
 
 ---
@@ -122,10 +122,10 @@ Many older users struggle with basic tech problems and don’t always have immed
 
 If you need help or clarification, feel free to contact:
 
-- **Nour**  
-- **Noah** 
-- **Hugh** 
-- **Elena**
+- [**Nour**](https://www.linkedin.com/in/nourshbair/)
+- [**Noah**](https://www.linkedin.com/in/noah-al-samawi-058583197/) 
+- [**Hugh**](https://www.linkedin.com/in/hugh-keenan/) 
+- [**Elena**](https://www.linkedin.com/in/elena-hanna-1b0a971b7/)
 - **Sylveria**
 
 
