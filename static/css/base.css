@@ -76,6 +76,93 @@ nav {
 .team-header p{
     color: #f5f5f5;
 }
+
+.team-header {
+    text-align: center;
+    margin: 3rem 0 2rem;
+    color: #007395;
+}
+
+.team-header p {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    color: #f5f5f5;
+}
+
+.team-section {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+        background: #f8fafc;
+}
+
+.team-container {
+    padding-top: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.8rem;
+}
+
+.team-card {
+    background: #e2e2e2;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    padding: 1.5rem 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.team-card img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #007395;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-body h5 {
+    margin: 0 0 0.5rem;
+    color: #007395;
+    font-weight: 600;
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+.card-body p {
+    font-size: 0.95rem;
+    color: #555;
+    text-align: center;
+    margin-bottom: 1rem;
+    min-height: 72px; /* Keeps height consistent for text blocks */
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.1rem;
+}
+
+.social-links a {
+    color: #007395;
+    font-size: 1.4rem;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #004f5a;
+}
+
 /* === CHAT BOX === */
 .chat-box {
     background: #fff;
@@ -465,4 +552,10 @@ footer {
     .chat-box { font-size: 1rem; }
     .features-section { padding: 1.5rem 0.5rem; }
     .feature-icon { font-size: 2rem; }
+    .card-body h5 {
+        font-size: 1.1rem;
+    }
+    .card-body p {
+        font-size: 0.85rem;
+    }
 }
