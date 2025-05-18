@@ -24,9 +24,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'history' %}">History</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'meet_the_team' %}">Meet the Team</a>
-                            </li>
                         {% else %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'login' %}">Login</a>
@@ -34,10 +31,10 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'meet_the_team' %}">Meet the Team</a>
-                            </li>
                         {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'meet_the_team' %}">Meet the Team</a>
+                        </li>
                     </ul>
                 </div>
             </div>
