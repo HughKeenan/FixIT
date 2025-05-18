@@ -22,25 +22,29 @@ import textwrap
 openai.api_key = settings.OPENAI_API_KEY
 client = openai.OpenAI(api_key=settings.OPENAI_API_KEY)
 
-@login_required
 @csrf_exempt
 def ask_ai(request):
     if request.method == 'POST':
         user_input = request.POST.get('user_input')
-
         resend = request.POST.get('resend') == 'true'
 
         if not user_input:
             return redirect('home')
-        
+
         try:
             answer = get_simple_answer(user_input)
 
-            # Save to session to show on homepage
+            # Save to session for display on homepage
             request.session['last_question'] = user_input
             request.session['last_response'] = answer
 
-            Message.objects.create(user=request.user, question=user_input, response=answer)
+            # Save to DB only if user is logged in
+            if request.user.is_authenticated:
+                Message.objects.create(
+                    user=request.user,
+                    question=user_input,
+                    response=answer
+                )
 
             if resend:
                 return redirect('home')
@@ -53,7 +57,8 @@ def ask_ai(request):
             else:
                 return redirect('home')
 
-    return JsonResponse({'answer': answer})
+    # Handle non-POST requests gracefully
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
 
 
 
