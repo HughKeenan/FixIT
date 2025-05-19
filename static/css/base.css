@@ -98,11 +98,12 @@ nav {
     color: #f5f5f5;
 }
 
-#suggestedTitle{
+.list-title{
     color: #ffffff !important;
     text-align: center;
-    font-size: 3.2rem;
+    font-size: 2rem;
     font-weight: 800;
+    margin-bottom: 3rem;
 }
 
 .team-card p,
@@ -367,7 +368,7 @@ nav {
     color: #ffffff;
     border-color: #ffffff;
     margin-top: 1rem;
-    background: #a711c4;
+    background: #cf67ac;
 }
 
 
