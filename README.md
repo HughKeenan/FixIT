@@ -113,7 +113,7 @@ Many older users struggle with basic tech problems and don’t always have immed
 - [**Noah**](https://github.com/Noah-Samawi)
 - [**Hugh**](https://github.com/HughKeenan)
 - [**Elena**](https://github.com/Enzolita)
-- **Sylveria**
+- [**Sylveria**](https://github.com/ozi-cheri)
  
 
 ---
@@ -126,7 +126,7 @@ If you need help or clarification, feel free to contact:
 - [**Noah**](https://www.linkedin.com/in/noah-al-samawi-058583197/) 
 - [**Hugh**](https://www.linkedin.com/in/hugh-keenan/) 
 - [**Elena**](https://www.linkedin.com/in/elena-hanna-1b0a971b7/)
-- **Sylveria**
+- [**Sylveria**](https://www.linkedin.com/in/sylveria-ozioma-ihemedu-3778aa2bb/)
 
 
 ## Acknowledgements
