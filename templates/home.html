@@ -9,8 +9,10 @@
             <div class="hero-title">Tech Help, Made Simple</div>
             <div class="hero-subtitle">Having trouble with tech? <br>Simple answers to all your tech problems. <span style="font-size:1.5rem;">🤗</span></div>
         </div>
+        <button id="toggleVoiceBtn" class="btn btn-sm btn-outline-secondary float-center">
+            🔊 Voice On (MUTE)
+        </button>
     </div>
-
     <div class="chat-box mb-4" id="chatBox">
         {% if messages %}
             {% for msg in messages %}
@@ -32,7 +34,6 @@
             <div class="bot-msg"><strong>FixIT:</strong> Hi there! How can I help you today?</div>
         {% endif %}
     </div>
-
     <form id="chatForm" method="post" action="{% url 'ask_ai' %}">
         {% csrf_token %}
         <div class="input-group">
@@ -105,14 +106,19 @@
         }
 
         function speakAnswer(text) {
-            if ('speechSynthesis' in window) {
-              const utterance = new SpeechSynthesisUtterance(text);
-              utterance.lang = 'en-US';
-              utterance.rate = 1;
-              speechSynthesis.speak(utterance);
-            } else {
-              console.warn("Speech synthesis not supported in this browser.");
+            if (!('speechSynthesis' in window)) {
+                console.warn("Speech synthesis not supported.");
+                return;
             }
+        
+            if (localStorage.getItem('voice_enabled') === 'false') {
+                return; // User has muted speech
+            }
+        
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 1;
+            speechSynthesis.speak(utterance);
         }
     </script>
 
@@ -176,5 +182,23 @@
                 voiceBtn.title = "Voice recognition not supported by your browser.";
             }
         });
+    </script>
+
+    <script>
+        const voiceButton = document.getElementById('toggleVoiceBtn');
+        const isVoiceEnabled = () => localStorage.getItem('voice_enabled') !== 'false';
+    
+        // Set button text on load
+        function updateVoiceButton() {
+            voiceButton.textContent = isVoiceEnabled() ? '🔊 Voice On (MUTE)' : '🔇 Voice Off (UN-MUTE)';
+        }
+    
+        voiceButton.addEventListener('click', () => {
+            const current = isVoiceEnabled();
+            localStorage.setItem('voice_enabled', !current);
+            updateVoiceButton();
+        });
+    
+        updateVoiceButton(); // set initial state
     </script>
 {% endblock %}
