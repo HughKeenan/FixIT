@@ -90,8 +90,8 @@ nav {
     animation: fadeInUp 1.2s;
 }
   
-#historyListTitle{
-    color: #ebebeb;
+#historyListTitle, #noHistoryTxt{
+    color: #ebebeb !important;
 }
 
 .about_text{
