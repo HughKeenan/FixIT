@@ -98,6 +98,14 @@ nav {
     color: #f5f5f5;
 }
 
+.list-title{
+    color: #ffffff !important;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 3rem;
+}
+
 .team-card p,
 .team-card h2,
 .team-card h5,
@@ -172,7 +180,7 @@ nav {
     color: #555;
     text-align: center;
     margin-bottom: 1rem;
-    min-height: 72px; /* Keeps height consistent for text blocks */
+    /* min-height: 72px; Keeps height consistent for text blocks */
 }
 
 .social-links {
@@ -360,7 +368,7 @@ nav {
     color: #ffffff;
     border-color: #ffffff;
     margin-top: 1rem;
-    background: #a711c4;
+    background: #cf67ac;
 }
 
 
@@ -377,6 +385,14 @@ nav {
 .list-group-item:hover {
     transform: translateY(-2px) scale(1.01);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.list-group-item a{
+    color: #000000 !important;
+}
+
+.suggested_list_group{
+    height: auto;
 }
   
 /* === AUTH CARDS === */
