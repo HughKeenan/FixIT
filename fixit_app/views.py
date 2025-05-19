@@ -37,7 +37,7 @@ def ask_ai(request):
 
         try:
             # answer = get_simple_answer(user_input)
-            answer = get_chat_response(user_input, request.user)
+            answer = get_chat_response(user_input, request.user if request.user.is_authenticated else None)
             formatted_answer = fix_markdown_formatting(answer)
 
             # Save to session for display on homepage
@@ -88,7 +88,6 @@ def get_chat_response(user_input, user):
         temperature=0.7,
         max_tokens=200
     )
-    print(response)
     reply = response.choices[0].message.content.strip()
     return reply
 
