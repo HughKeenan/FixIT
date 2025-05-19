@@ -109,7 +109,7 @@ Many older users struggle with basic tech problems and don’t always have immed
 
 ## 🧑‍🤝‍🧑 Team
 
-- [**Nour**](https://github.com/NourShbair)  
+- **Nour (Scrum Master)**: [Nour Shbair](https://github.com/NourShbair)   
 - [**Noah**](https://github.com/Noah-Samawi)
 - [**Hugh**](https://github.com/HughKeenan)
 - [**Elena**](https://github.com/Enzolita)
