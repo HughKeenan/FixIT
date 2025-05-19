@@ -20,6 +20,7 @@ import textwrap
 import re
 from collections import OrderedDict
 from django.db.models import Count
+from django.core.paginator import Paginator
 
 openai.api_key = settings.OPENAI_API_KEY
 client = openai.OpenAI(api_key=settings.OPENAI_API_KEY)
@@ -159,16 +160,14 @@ def suggested_questions(request):
 
 @login_required
 def message_history(request):
-    all_messages = Message.objects.filter(user=request.user).order_by('-created_at')
+    # Do not use slicing like [::-1] on QuerySet
+    messages = Message.objects.filter(user=request.user).order_by('-created_at')
 
-    # Track seen questions (case-insensitive)
-    unique_messages = OrderedDict()
-    for msg in all_messages:
-        key = msg.question.strip().lower()
-        if key not in unique_messages:
-            unique_messages[key] = msg  # Keep the first (newest) instance
+    paginator = Paginator(messages, 10)  # 10 per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-    return render(request, 'history.html', {'messages': unique_messages.values()})
+    return render(request, 'history.html', {'page_obj': page_obj})
 
 
 @login_required

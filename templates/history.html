@@ -2,46 +2,75 @@
 {% load static %}
 {% block content %}
 
+<h2 class="text-center margin-bottom page-title" id="historyListTitle">Your Past Questions</h2>
 
-    <h2 class="text-center margin-bottom page-title" id="historyListTitle">Your Past Questions</h2>
+{% if page_obj %}
+    <form method="get" action="{% url 'generate_pdf' %}" class="text-end mb-3">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary" id="downloadBtn">Download History</button>
+    </form>
 
-    {% if messages %}
-        <form method="get" action="{% url 'generate_pdf' %}" class="text-end mb-3">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-primary" id="downloadBtn">Download History</button>
-        </form>
-        <div class="list-group">
-            {% for msg in messages %}
-                <div class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <p class="mb-0"><strong>{{ msg.question }}</strong></p>
-                    </div>
-                    <div class="d-flex gap-2">
-                        <form method="post" action="{% url 'ask_ai' %}" class="d-inline">
-                            {% csrf_token %}
-                            <input type="hidden" name="user_input" value="{{ msg.question }}">
-                            <input type="hidden" name="resend" value="true">
-                            <button type="submit" class="btn btn-sm btn-outline-primary">Re-ask</button>
-                        </form>
-                        <form method="post" action="{% url 'delete_message' msg.pk %}" class="d-inline">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                        </form>
-                    </div>
+    <div class="list-group">
+        {% for msg in page_obj %}
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="mb-0"><strong>{{ msg.question }}</strong></p>
                 </div>
-            {% endfor %}
-        </div>
-        <div>
-            <form method="post" action="{% url 'clear_history' %}" class="text-end mb-3">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Clear All History</button>
-            </form>
-        {% else %}
-            <p class="text-muted" id="noHistoryTxt">No questions asked yet.</p>
-        {% endif %}
-        </div>
-    <div class="container">
-        <a href="/" class="btn btn-secondary mt-4">⬅ Back to Home</a>
+                <div class="d-flex gap-2">
+                    <form method="post" action="{% url 'ask_ai' %}" class="d-inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="user_input" value="{{ msg.question }}">
+                        <input type="hidden" name="resend" value="true">
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Re-ask</button>
+                    </form>
+                    <form method="post" action="{% url 'delete_message' msg.pk %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
     </div>
-         
+
+    <!-- Pagination Controls -->
+    <div class="mt-4 pagination-container">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">Previous</span></li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">Next</span></li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <form method="post" action="{% url 'clear_history' %}" class="text-end mb-3">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Clear All History</button>
+    </form>
+{% else %}
+    <p class="text-muted" id="noHistoryTxt">No questions asked yet.</p>
+{% endif %}
+
+<div class="container">
+    <a href="/" class="btn btn-secondary mt-4">⬅ Back to Home</a>
+</div>
+
 {% endblock %}
