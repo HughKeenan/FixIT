@@ -57,7 +57,7 @@ nav {
 .hero-section {
     position: relative;
     background: transparent;
-    padding: 0 0 3rem 0;
+    padding: 0 0 2rem 0;
     text-align: center;
     overflow: hidden;
 }
@@ -355,6 +355,14 @@ nav {
 #voiceBtn{
     background-color: #ffffff;
 }
+
+#toggleVoiceBtn{
+    color: #ffffff;
+    border-color: #ffffff;
+    margin-top: 1rem;
+    background: #a711c4;
+}
+
 
 /* === LISTS === */
 .list-group-item {
