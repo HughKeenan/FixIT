@@ -1,297 +1,73 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>FixIT</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700;800;900&display=swap">
-    <style>
-      body {
-        background: linear-gradient(120deg, #a1c4fd, #c2e9fb, #f8fafc, #a1c4fd);
-        background-size: 300% 300%;
-        animation: gradientBG 12s ease-in-out infinite;
-        min-height: 100vh;
-        font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
-        overflow-x: hidden;
-    }
-    nav {
-        background: #a1c4fd;
-        background-size: 300% 300%;
-        animation: gradientBG 12s ease-in-out infinite;
-        overflow-x: hidden;
-    }
-    @keyframes gradientBG {
-        0% {background-position: 0% 50%;}
-        50% {background-position: 100% 50%;}
-        100% {background-position: 0% 50%;}
-    }
-    .hero-section {
-        position: relative;
-        background: transparent;
-        padding: 5rem 0 3rem 0;
-        text-align: center;
-        overflow: hidden;
-    }
-    .hero-section .hero-bg-shape,
-    .hero-section .hero-bg-shape2 {
-        position: absolute;
-        width: 340px;
-        height: 340px;
-        filter: blur(18px);
-        z-index: 0;
-        opacity: 0.8;
-        animation: floatShape 6s ease-in-out infinite alternate;
-    }
-    .hero-section .hero-bg-shape {
-        top: -120px;
-        left: -120px;
-        background: radial-gradient(circle at 40% 40%, #00c6ff88 60%, transparent 100%);
-        animation-delay: 0s;
-    }
-    .hero-section .hero-bg-shape2 {
-        bottom: -120px;
-        right: -120px;
-        background: radial-gradient(circle at 60% 60%, #007bff99 60%, transparent 100%);
-        animation-delay: 1.5s;
-    }
-    .chat-box {
-        height: 400px;
-        overflow-y: auto;
-        border: 1px solid #dee2e6;
-        padding: 1rem;
-        border-radius: 8px;
-        background-color: white;
-    }
-    .user-msg, .bot-msg {
-        margin-bottom: 1rem;
-    }
-    .user-msg {
-        text-align: right;
-    }
-    .bot-msg {
-        text-align: left;
-    }
-    .input-group {
-        margin-bottom: 0.5rem;
-    }
-    #voice-input-group {
-        margin-bottom: 0.3rem;
-    }
-    @keyframes floatShape {
-        from { transform: translateY(0px);}
-        to { transform: translateY(30px);}
-    }
-    .auth-logo {
-        font-size: 2.7rem;
-        font-weight: 900;
-        letter-spacing: 2px;
-        color: #007bff;
-        background: linear-gradient(90deg, #007bff 60%, #00c6ff 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        display: inline-block;
-        text-shadow: 0 4px 24px #00c6ff22;
-        filter: drop-shadow(0 2px 10px #00c6ff44);
-    }
-    .auth-logo span {
-        color: #343a40 !important;
-        -webkit-text-fill-color: #343a40;
-    }
-    .emoji {
-        filter: drop-shadow(0 2px 6px #ffc10799);
-        vertical-align: middle;
-        animation: emojiWave 2.2s infinite;
-        display: inline-block;
-    }
-    @keyframes emojiWave {
-        0%, 100% { transform: rotate(0deg);}
-        10% { transform: rotate(-18deg);}
-        20% { transform: rotate(18deg);}
-        30% { transform: rotate(-12deg);}
-        40% { transform: rotate(12deg);}
-        50% { transform: rotate(0deg);}
-    }
-    .hero-title {
-        font-size: 3.2rem;
-        font-weight: 800;
-        color: #007bff;
-        letter-spacing: 2px;
-        text-shadow: 0 4px 24px #007bff22, 0 2px 8px #fff;
-        z-index: 1;
-        position: relative;
-        margin-bottom: 0.5rem;
-        animation: fadeInDown 1s;
-    }
-    .hero-subtitle {
-        font-size: 1.4rem;
-        color: #343a40;
-        margin-top: 1rem;
-        z-index: 1;
-        position: relative;
-        animation: fadeInUp 1.2s;
-    }
-    .fancy-btn {
-        background: linear-gradient(90deg, #007bff 60%, #00c6ff 100%);
-        color: #fff;
-        font-weight: 700;
-        font-size: 1.2rem;
-        border: none;
-        border-radius: 2rem;
-        padding: 0.75rem 2.5rem;
-        box-shadow: 0 8px 32px 0 rgba(0,123,255,0.15);
-        transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
-        position: relative;
-        overflow: hidden;
-    }
-    .fancy-btn:before {
-        content: "";
-        position: absolute;
-        left: -75%;
-        top: 0;
-        width: 50%;
-        height: 100%;
-        background: linear-gradient(120deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 100%);
-        transform: skewX(-20deg);
-        transition: left 0.4s;
-    }
-    .fancy-btn:hover:before {
-        left: 120%;
-    }
-    .fancy-btn:hover, .fancy-btn:focus {
-        background: linear-gradient(90deg, #0056b3 60%, #007bff 100%);
-        box-shadow: 0 12px 36px 0 rgba(0,123,255,0.22);
-        transform: translateY(-3px) scale(1.04);
-    }
-    .features-section {
-        padding: 3rem 0 2rem 0;
-        background: rgba(255,255,255,0.82);
-        border-radius: 2rem;
-        box-shadow: 0 12px 40px 0 rgba(0,0,0,0.10);
-        margin: 0 auto 3rem auto;
-        max-width: 980px;
-        position: relative;
-        z-index: 2;
-        animation: fadeInUp 1.2s;
-    }
-    .feature-icon {
-        font-size: 2.8rem;
-        color: #00c6ff;
-        margin-bottom: 0.7rem;
-        filter: drop-shadow(0 2px 8px #00c6ff33);
-        animation: popIn 1s;
-    }
-    .feature-title {
-        font-size: 1.3rem;
-        font-weight: 700;
-        color: #007bff;
-        margin-bottom: 0.5rem;
-    }
-    .feature-desc {
-        color: #343a40;
-        font-size: 1.05rem;
-    }
-    .fancy-btn.mt-4 {
-        font-size: 1.1rem;
-        padding: 0.7rem 2.2rem;
-        margin-top: 2.5rem !important;
-    }
-    .glow {
-        box-shadow: 0 0 8px 2px #00c6ff44;
-        animation: glowPulse 1.5s infinite alternate;
-    }
-    @keyframes glowPulse {
-        from { box-shadow: 0 0 8px 2px #00c6ff44; }
-        to { box-shadow: 0 0 18px 6px #007bff33; }
-    }
-    @keyframes fadeInDown {
-        from { opacity: 0; transform: translateY(-40px);}
-        to { opacity: 1; transform: translateY(0);}
-    }
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(40px);}
-        to { opacity: 1; transform: translateY(0);}
-    }
-    @keyframes popIn {
-        0% { transform: scale(0.7); opacity: 0;}
-        80% { transform: scale(1.1);}
-        100% { transform: scale(1); opacity: 1;}
-    }
-    @media (max-width: 600px) {
-        .footer-fancy .d-flex {
-            flex-direction: column !important;
-            gap: 0.5rem !important;
-        }
-    }
-    @media (max-width: 700px) {
-        .hero-title { font-size: 2.1rem; }
-        .features-section { padding: 1.5rem 0.5rem; }
-        .feature-icon { font-size: 2rem;}
-    }
-    </style>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-        <div class="container">
-            <a class="navbar-brand auth-logo" href="#">Fix<span>IT</span> <span class="emoji" style="font-size:2rem;color:#ffc107;">🛠️</span></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    {% if user.is_authenticated %}
-                        <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'history' %}">History</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'meet_the_team' %}">Meet the Team</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'meet_the_team' %}">Meet the Team</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
+    <head>
+        <meta charset="UTF-8">
+        <title>FixIT – Ask Me Anything</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="icon" type="image/x-icon" href="{% static 'images/favicon/favicon.ico' %}">
+
+
+        <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="page-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+                <div class="container">
+                    <a class="navbar-brand auth-logo" href="/">Fix<span>IT</span> <span class="emoji" style="font-size:2rem;color:#ffc107;">🛠️</span></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                        <ul class="navbar-nav">
+                            {% if user.is_authenticated %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'history' %}">History</a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+                                </li>
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'meet_the_team' %}">Meet the Team</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <main class="main-content container mt-5">
+                {% block content %}
+                {% endblock %}
+            </main>
+
+            <footer class="footer footer-fancy py-4 text-center mt-5">
+                <div class="container">
+                    <div class="d-flex flex-column flex-md-row align-items-center justify-content-center gap-3 mb-2">
+                        <span class="footer-logo fw-bold" style="font-size:1.3rem; color:#007bff;">
+                            Fix<span style="color:#343a40;">IT</span> <span style="font-size:1.2rem;color:#ffc107;">🛠️</span>
+                        </span>
+                        <span class="footer-text text-muted small">|</span>
+                        <span class="footer-text text-muted small">Making tech a little less scary</span>
+                    </div>
+                    <div class="footer-links mb-2">
+                        <a href="{% url 'about' %}" class="footer-link mx-2">About</a>
+                        <a href="#" class="footer-link mx-2">Contact</a>
+                        <a href="#" class="footer-link mx-2">Privacy</a>
+                    </div>
+                    <p class="mb-0 footer-text text-muted small">&copy; {% now "Y" %} FixIT. All rights reserved.</p>
+                </div>
+            </footer>
         </div>
-    </nav>
-
-    <main class="container mt-5">
-        {% block content %}
-        {% endblock %}
-    </main>
-
-    <footer class="footer-fancy py-4 text-center mt-5">
-        <div class="container">
-            <div class="d-flex flex-column flex-md-row align-items-center justify-content-center gap-3 mb-2">
-                <span class="footer-logo fw-bold" style="font-size:1.3rem; color:#007bff;">
-                    Fix<span style="color:#343a40;">IT</span> <span style="font-size:1.2rem;color:#ffc107;">🛠️</span>
-                </span>
-                <span class="text-muted small">|</span>
-                <span class="text-muted small">Making tech a little less scary</span>
-            </div>
-            <div class="footer-links mb-2">
-                <a href="#" class="footer-link mx-2">About</a>
-                <a href="#" class="footer-link mx-2">Contact</a>
-                <a href="#" class="footer-link mx-2">Privacy</a>
-            </div>
-            <p class="mb-0 text-muted small">&copy; {% now "Y" %} FixIT. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>

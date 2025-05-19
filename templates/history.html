@@ -1,232 +1,47 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Your Support History</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700;800;900&display=swap">
-        <style>
-            body {
-                background: linear-gradient(120deg, #a1c4fd, #c2e9fb, #f8fafc, #a1c4fd);
-                background-size: 300% 300%;
-                animation: gradientBG 12s ease-in-out infinite;
-                min-height: 100vh;
-                font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
-                overflow-x: hidden;
-            }
-            @keyframes gradientBG {
-                0% {background-position: 0% 50%;}
-                50% {background-position: 100% 50%;}
-                100% {background-position: 0% 50%;}
-            }
-            nav {
-                background: #a1c4fd;
-                background-size: 300% 300%;
-                animation: gradientBG 12s ease-in-out infinite;
-                overflow-x: hidden;
-            }
-            .navbar-brand {
-                font-size: 2.7rem;
-                font-weight: 900;
-                letter-spacing: 2px;
-                color: #007bff;
-                background: linear-gradient(90deg, #007bff 60%, #00c6ff 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                display: inline-block;
-                text-shadow: 0 4px 24px #00c6ff22;
-                filter: drop-shadow(0 2px 10px #00c6ff44);
-            }
-            .navbar-brand span {
-                color: #343a40 !important;
-                -webkit-text-fill-color: #343a40;
-            }
-            .chat-box {
-                height: 400px;
-                overflow-y: auto;
-                border: 1px solid #dee2e6;
-                padding: 1rem;
-                border-radius: 8px;
-                background-color: white;
-            }
-            .user-msg, .bot-msg {
-                margin-bottom: 1rem;
-            }
-            .user-msg {
-                text-align: right;
-            }
-            .bot-msg {
-                text-align: left;
-            }
-            .input-group{
-                margin-bottom: 0.5rem;
-            }
-            #voice-input-group{
-               margin-bottom: 0.3rem;
-            }
-            /*.btn-primary {
-                background: linear-gradient(90deg, #007bff 60%, #00c6ff 100%);
-                border: none;
-                border-radius: 2rem;
-                padding: 0.75rem 2rem;
-                font-weight: 700;
-                transition: background 0.3s ease;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            }
-            .btn-primary:hover {
-                background: linear-gradient(90deg, #0056b3 60%, #007bff 100%);
-                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-                transform: translateY(-2px);
-            }*/
-            .btn-outline-danger {
-                border-radius: 2rem;
-                padding: 0.5rem 1.5rem;
-                font-weight: 600;
-                transition: all 0.2s ease;
-            }
-            .btn-outline-danger:hover {
-                background-color: #dc3545;
-                color: white;
-                box-shadow: 0 3px 9px rgba(0, 0, 0, 0.15);
-                transform: translateY(-1px);
-            }
-            .btn-secondary {
-                border-radius: 2rem;
-                padding: 0.5rem 1.5rem;
-                font-weight: 600;
-                transition: all 0.2s ease;
-            }
-            .btn-secondary:hover {
-                background-color: #6c757d;
-                color: white;
-                box-shadow: 0 3px 9px rgba(0, 0, 0, 0.15);
-                transform: translateY(-1px);
-            }
-            .list-group-item {
-                border-radius: 1rem;
-                margin-bottom: 1rem;
-                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-                transition: transform 0.2s ease;
-            }
-            .list-group-item:hover {
-                transform: translateY(-2px) scale(1.01);
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
-            }
-            .footer-fancy {
-                background: rgba(255,255,255,0.97);
-                padding: 2.5rem 0 1.5rem 0;
-                margin-top: 4rem;
-                border-top: 1px solid #dee2e6;
-            }
+{% block content %}
 
-            .footer-logo {
-                letter-spacing: 1px;
-                background: linear-gradient(90deg, #007bff 60%, #00c6ff 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                display: inline-block;
-            }
-            .footer-link {
-                color: #007bff;
-                text-decoration: none;
-                font-weight: 500;
-                transition: color 0.2s;
-            }
-            .footer-link:hover {
-                color: #0056b3;
-                text-decoration: underline;
-            }
-            @media (max-width: 600px) {
-                .footer-fancy .d-flex {
-                    flex-direction: column !important;
-                    gap: 0.5rem !important;
-                }
-            }
-        </style>
-    </head>
-    <body class="bg-light">
-        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand auth-logo" href="/">Fix<span>IT</span> <span class="emoji" style="font-size:2rem;color:#ffc107;">🛠️</span></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Home</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'meet_the_team' %}">Meet the Team</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/history">History</a>
-                        </li>
-                       
-                    </ul>
+
+    <h2 class="mb-4 text-center" id="historyListTitle">Your Past Questions</h2>
+
+    {% if messages %}
+        <form method="get" action="{% url 'generate_pdf' %}" class="text-end mb-3">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary" id="downloadBtn">Download History</button>
+        </form>
+        <div class="list-group">
+            {% for msg in messages %}
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="mb-0"><strong>{{ msg.question }}</strong></p>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <form method="post" action="{% url 'ask_ai' %}" class="d-inline">
+                            {% csrf_token %}
+                            <input type="hidden" name="user_input" value="{{ msg.question }}">
+                            <input type="hidden" name="resend" value="true">
+                            <button type="submit" class="btn btn-sm btn-outline-primary">Re-ask</button>
+                        </form>
+                        <form method="post" action="{% url 'delete_message' msg.pk %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </nav>
-
-        <div class="container py-5">
-            <h2 class="mb-4 text-center">Your Past Questions</h2>
-
-            {% if messages %}
-                <div class="list-group">
-                    {% for msg in messages %}
-                        <div class="list-group-item">
-                            <h5><strong>You asked:</strong> {{ msg.question }}</h5>
-                            <p><strong>FixIT replied:</strong> {{ msg.response }}</p>
-                            <form method="post" action="{% url 'ask_ai' %}" class="d-inline">
-                                {% csrf_token %}
-                                <input type="hidden" name="user_input" value="{{ msg.question }}">
-                                <input type="hidden" name="resend" value="true">
-                                <button type="submit" class="btn btn-sm btn-outline-primary">Re-ask</button>
-                            </form>
-                            <form method="post" action="{% url 'delete_message' msg.pk %}" class="d-inline ms-2">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                            </form>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div>
-                    <form method="get" action="{% url 'generate_pdf' %}" class="text-end mb-3">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-primary">Download History</button>
-                    </form>
-                    <form method="post" action="{% url 'clear_history' %}" class="text-end mb-3">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger">Clear All History</button>
-                    </form>
-                {% else %}
-                    <p class="text-muted">No questions asked yet.</p>
-                {% endif %}
-                </div>
-
-            <a href="/" class="btn btn-secondary mt-4">⬅ Back to Home</a>
+            {% endfor %}
         </div>
-         <footer class="footer-fancy py-4 text-center mt-5">
-            <div class="container">
-                <div class="d-flex flex-column flex-md-row align-items-center justify-content-center gap-3 mb-2">
-                    <span class="footer-logo fw-bold" style="font-size:1.3rem; color:#007bff;">
-                        Fix<span style="color:#343a40;">IT</span> <span style="font-size:1.2rem;color:#ffc107;">🛠️</span>
-                    </span>
-                    <span class="text-muted small">|</span>
-                    <span class="text-muted small">Making tech a little less scary</span>
-                </div>
-                <div class="footer-links mb-2">
-                    <a href="#" class="footer-link mx-2">About</a>
-                    <a href="#" class="footer-link mx-2">Contact</a>
-                    <a href="#" class="footer-link mx-2">Privacy</a>
-                    <a href="#" class="footer-link mx-2">Privacy</a>
-                </div>
-                <p class="mb-0 text-muted small">&copy; {% now "Y" %} FixIT. All rights reserved.</p>
-            </div>
-        </footer>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
-</html>
+        <div>
+            <form method="post" action="{% url 'clear_history' %}" class="text-end mb-3">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Clear All History</button>
+            </form>
+        {% else %}
+            <p class="text-muted" id="noHistoryTxt">No questions asked yet.</p>
+        {% endif %}
+        </div>
+    <div class="container">
+        <a href="/" class="btn btn-secondary mt-4">⬅ Back to Home</a>
+    </div>
+         
+{% endblock %}
