@@ -1,24 +1,8 @@
 # 🛠️ FixIT - AI-Powered Tech Support for Families
 
-🌐 **Live Site**: [https://fixit-af0e14cb45cc.herokuapp.com/](https://fixit-af0e14cb45cc.herokuapp.com/)
+🌐 **Live Site**: [FixIT](https://fixit-af0e14cb45cc.herokuapp.com/)
 
-[![Logo](static/images/readme_images/fixit_logo.png)](link_to_your_repo)
-
----
-
-## 📚 Table of Contents
-
-1. [Introduction](introduction.md)
-2. [Purpose](purpose.md)
-3. [How It Works](how_it_works.md)
-4. [Project Structure](project_structure.md)
-5. [Core Models](core_models.md)
-6. [AI Integration](ai_integration.md)
-7. [MVP Features](mvp_features.md)
-8. [Roadmap](roadmap.md)
-9. [Tech Stack](tech_stack.md)
-10. [Team](team.md)
-11. [Support & Contact](support_contact.md)
+[![Logo](static/images/readme_images/home.png)](https://fixit-af0e14cb45cc.herokuapp.com/)
 
 ---
 
@@ -109,12 +93,11 @@ Many older users struggle with basic tech problems and don’t always have immed
 
 ## 🧑‍🤝‍🧑 Team
 
-- **Nour (Scrum Master)**: [Nour Shbair](https://github.com/NourShbair)   
-- [**Noah**](https://github.com/Noah-Samawi)
-- [**Hugh**](https://github.com/HughKeenan)
-- [**Elena**](https://github.com/Enzolita)
-- [**Sylveria**](https://github.com/ozi-cheri)
- 
+- **[Nour](https://github.com/NourShbair): Scrum Master & Tech Lead**
+- **[Noah](https://github.com/Noah-Samawi): Full-Stack Developer**
+- **[Hugh](https://github.com/HughKeenan): Full-Stack Developer**
+- **[Elena](https://github.com/Enzolita): Front-End Developer**
+- **[Sylveria](https://github.com/ozi-cheri): Junior Developer**
 
 ---
 
@@ -135,4 +118,3 @@ We extend our heartfelt gratitude to the following:
 
 - **Code Institute** for organizing the "Code to Protect" hackathon.
 - **FixIT Team** for their dedication and hard work.
-- **Subject Matter Experts** for their invaluable insights on FixIT.
