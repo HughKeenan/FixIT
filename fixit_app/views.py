@@ -18,6 +18,8 @@ from reportlab.pdfgen import canvas
 from django.utils.timezone import localtime
 import textwrap
 import re
+from collections import OrderedDict
+from django.utils.timezone import now
 
 openai.api_key = settings.OPENAI_API_KEY
 client = openai.OpenAI(api_key=settings.OPENAI_API_KEY)
@@ -102,10 +104,20 @@ def fix_markdown_formatting(text):
 
     return text.strip()
 
+
 @login_required
 def message_history(request):
-    messages = Message.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'history.html', {'messages': messages})
+    all_messages = Message.objects.filter(user=request.user).order_by('-created_at')
+
+    # Track seen questions (case-insensitive)
+    unique_messages = OrderedDict()
+    for msg in all_messages:
+        key = msg.question.strip().lower()
+        if key not in unique_messages:
+            unique_messages[key] = msg  # Keep the first (newest) instance
+
+    return render(request, 'history.html', {'messages': unique_messages.values()})
+
 
 @login_required
 def delete_message(request, pk):
