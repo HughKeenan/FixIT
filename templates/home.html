@@ -105,20 +105,24 @@
             .replace(/^(<br>)+|(<br>)+$/g, '');              // Trim leading/trailing <br>
         }
 
+        let currentUtterance = null;
         function speakAnswer(text) {
-            if (!('speechSynthesis' in window)) {
-                console.warn("Speech synthesis not supported.");
+            if (!('speechSynthesis' in window)) return;
+
+            // Check if speech is disabled
+            if (localStorage.getItem('voice_enabled') === 'false') {
+                // If speech is currently ongoing, stop it
+                window.speechSynthesis.cancel();
                 return;
             }
-        
-            if (localStorage.getItem('voice_enabled') === 'false') {
-                return; // User has muted speech
-            }
-        
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-US';
-            utterance.rate = 1;
-            speechSynthesis.speak(utterance);
+
+            // Stop any previous utterance before starting new one
+            window.speechSynthesis.cancel();
+
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.lang = 'en-US';
+            currentUtterance.rate = 1;
+            window.speechSynthesis.speak(currentUtterance);
         }
     </script>
 
@@ -195,8 +199,14 @@
     
         voiceButton.addEventListener('click', () => {
             const current = isVoiceEnabled();
-            localStorage.setItem('voice_enabled', !current);
+            const newSetting = !current;
+        
+            localStorage.setItem('voice_enabled', newSetting);
             updateVoiceButton();
+        
+            if (!newSetting && 'speechSynthesis' in window) {
+                window.speechSynthesis.cancel();  // ⛔ Stop current speech immediately
+            }
         });
     
         updateVoiceButton(); // set initial state
