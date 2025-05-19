@@ -201,4 +201,22 @@
     
         updateVoiceButton(); // set initial state
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            const askParam = params.get("ask");
+        
+            if (askParam) {
+                const input = document.getElementById('userInput');
+                const chatForm = document.getElementById('chatForm');
+                input.value = askParam;
+        
+                // Delay submit slightly to ensure DOM is ready
+                setTimeout(() => {
+                    chatForm.dispatchEvent(new Event('submit'));
+                }, 300);
+            }
+        });
+    </script>
 {% endblock %}

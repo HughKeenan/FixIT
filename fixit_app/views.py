@@ -19,7 +19,7 @@ from django.utils.timezone import localtime
 import textwrap
 import re
 from collections import OrderedDict
-from django.utils.timezone import now
+from django.db.models import Count
 
 openai.api_key = settings.OPENAI_API_KEY
 client = openai.OpenAI(api_key=settings.OPENAI_API_KEY)
@@ -130,6 +130,32 @@ def fix_markdown_formatting(text):
 
     return text.strip()
 
+def suggested_questions(request):
+    prompt = (
+        "Generate a list of 10 common, concise questions people frequently ask about tech issues they need help to solve, "
+        "Format them as a numbered list."
+    )
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.6,
+            max_tokens=300,
+        )
+        raw_output = response.choices[0].message.content        
+        print(raw_output)
+
+        questions = [line.strip("0123456789. ").strip() for line in raw_output.strip().split("\n") if line.strip()]
+        print(questions)
+
+    except Exception as e:
+        questions = []
+        print(f"OpenAI error: {e}")
+
+    return render(request, 'suggested_questions.html', {
+        'suggested_questions': questions,
+    })
 
 @login_required
 def message_history(request):
