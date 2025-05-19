@@ -35,7 +35,8 @@ def ask_ai(request):
             return redirect('home')
 
         try:
-            answer = get_simple_answer(user_input)
+            # answer = get_simple_answer(user_input)
+            answer = get_chat_response(user_input, request.user)
             formatted_answer = fix_markdown_formatting(answer)
 
             # Save to session for display on homepage
@@ -64,6 +65,31 @@ def ask_ai(request):
     # Handle non-POST requests gracefully
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
+
+def get_chat_response(user_input, user):
+    # Get last 10 messages from this user
+    recent_messages = Message.objects.filter(user=user).order_by('-created_at')[:10][::-1]  # newest last
+
+    # Build OpenAI-style message history
+    chat_history = []
+    for msg in recent_messages:
+        chat_history.append({'role': 'user', 'content': msg.question})
+        chat_history.append({'role': 'assistant', 'content': msg.response})
+
+    # Add the current question
+    chat_history.append({'role': 'user', 'content': user_input})
+
+    # Call OpenAI
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        store=True,
+        messages=chat_history,
+        temperature=0.7,
+        max_tokens=200
+    )
+    print(response)
+    reply = response.choices[0].message.content.strip()
+    return reply
 
 
 def get_simple_answer(user_question):
