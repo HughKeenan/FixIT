@@ -19,7 +19,8 @@ from django.utils.timezone import localtime
 import textwrap
 import re
 from collections import OrderedDict
-from django.utils.timezone import now
+from django.db.models import Count
+from django.core.paginator import Paginator
 
 openai.api_key = settings.OPENAI_API_KEY
 client = openai.OpenAI(api_key=settings.OPENAI_API_KEY)
@@ -36,7 +37,7 @@ def ask_ai(request):
 
         try:
             # answer = get_simple_answer(user_input)
-            answer = get_chat_response(user_input, request.user)
+            answer = get_chat_response(user_input, request.user if request.user.is_authenticated else None)
             formatted_answer = fix_markdown_formatting(answer)
 
             # Save to session for display on homepage
@@ -87,7 +88,6 @@ def get_chat_response(user_input, user):
         temperature=0.7,
         max_tokens=200
     )
-    print(response)
     reply = response.choices[0].message.content.strip()
     return reply
 
@@ -130,19 +130,43 @@ def fix_markdown_formatting(text):
 
     return text.strip()
 
+def suggested_questions(request):
+    prompt = (
+        "Generate a list of 10 common, concise questions people frequently ask about tech issues they need help to solve, "
+        "Format them as a numbered list."
+    )
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.6,
+            max_tokens=300,
+        )
+        raw_output = response.choices[0].message.content        
+        print(raw_output)
+
+        questions = [line.strip("0123456789. ").strip() for line in raw_output.strip().split("\n") if line.strip()]
+        print(questions)
+
+    except Exception as e:
+        questions = []
+        print(f"OpenAI error: {e}")
+
+    return render(request, 'suggested_questions.html', {
+        'suggested_questions': questions,
+    })
 
 @login_required
 def message_history(request):
-    all_messages = Message.objects.filter(user=request.user).order_by('-created_at')
+    # Do not use slicing like [::-1] on QuerySet
+    messages = Message.objects.filter(user=request.user).order_by('-created_at')
 
-    # Track seen questions (case-insensitive)
-    unique_messages = OrderedDict()
-    for msg in all_messages:
-        key = msg.question.strip().lower()
-        if key not in unique_messages:
-            unique_messages[key] = msg  # Keep the first (newest) instance
+    paginator = Paginator(messages, 10)  # 10 per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-    return render(request, 'history.html', {'messages': unique_messages.values()})
+    return render(request, 'history.html', {'page_obj': page_obj})
 
 
 @login_required

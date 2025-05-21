@@ -36,4 +36,5 @@ urlpatterns = [
     path('generate-pdf/', views.generate_pdf, name='generate_pdf'),
     path('contact/', views.contact, name='contact'),
     path('privacy', views.privacy, name='privacy'),
+    path('suggested/', views.suggested_questions, name='suggested_questions'),
 ]

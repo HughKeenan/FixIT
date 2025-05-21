@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center list-title">Top 10 Tech Issues</h2>
+    {% if suggested_questions %}
+        <ul class="list-group">
+            {% for q in suggested_questions %}
+                <li class="list-group-item suggested_list_group">
+                    <a href="/?ask={{ q|urlencode }}" class="text-decoration-none">
+                        🛠️ {{ q }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="alert alert-warning">
+            Unable to load suggested questions right now. Please try again later.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
